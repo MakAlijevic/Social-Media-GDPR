@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SocialMediaAPI.DAL.Data;
+
 namespace SocialMediaAPI
 {
     public class Program
@@ -8,6 +11,9 @@ namespace SocialMediaAPI
 
             // Add services to the container.
 
+            builder.Services.AddDbContext<UserDataContext>(options => {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("UserDBDefaultConnection"));
+            });
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
