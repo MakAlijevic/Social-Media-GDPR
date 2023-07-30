@@ -15,9 +15,16 @@ namespace SocialMediaAPI
 
             // Add services to the container.
 
+            //DbContext for UserDB
             builder.Services.AddDbContext<UserDataContext>(options => {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("UserDBDefaultConnection"));
             });
+
+            //DbContext for GeneralDB
+            builder.Services.AddDbContext<GeneralDataContext>(options => {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("GeneralDBDefaultConnection"));
+            });
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
