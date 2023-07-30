@@ -87,3 +87,5 @@ C:\Users\Korisnik\Desktop\Codes\WebDev\Social-Media-GDPR\API\SocialMediaAPI\Soci
 C:\Users\Korisnik\Desktop\Codes\WebDev\Social-Media-GDPR\API\SocialMediaAPI\SocialMediaAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\Korisnik\Desktop\Codes\WebDev\Social-Media-GDPR\API\SocialMediaAPI\SocialMediaAPI\bin\Debug\net6.0\SocialMediaAPI.DAL.dll
 C:\Users\Korisnik\Desktop\Codes\WebDev\Social-Media-GDPR\API\SocialMediaAPI\SocialMediaAPI\bin\Debug\net6.0\SocialMediaAPI.DAL.pdb
+C:\Users\Korisnik\Desktop\Codes\WebDev\Social-Media-GDPR\API\SocialMediaAPI\SocialMediaAPI\bin\Debug\net6.0\SocialMediaAPI.BLL.dll
+C:\Users\Korisnik\Desktop\Codes\WebDev\Social-Media-GDPR\API\SocialMediaAPI\SocialMediaAPI\bin\Debug\net6.0\SocialMediaAPI.BLL.pdb

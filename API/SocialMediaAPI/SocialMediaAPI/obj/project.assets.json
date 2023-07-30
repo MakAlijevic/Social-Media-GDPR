@@ -1243,6 +1243,21 @@
           }
         }
       },
+      "SocialMediaAPI.BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9",
+          "SocialMediaAPI.DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SocialMediaAPI.BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SocialMediaAPI.BLL.dll": {}
+        }
+      },
       "SocialMediaAPI.DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -3727,6 +3742,11 @@
         "version.txt"
       ]
     },
+    "SocialMediaAPI.BLL/1.0.0": {
+      "type": "project",
+      "path": "../SocialMediaAPI.BLL/SocialMediaAPI.BLL.csproj",
+      "msbuildProject": "../SocialMediaAPI.BLL/SocialMediaAPI.BLL.csproj"
+    },
     "SocialMediaAPI.DAL/1.0.0": {
       "type": "project",
       "path": "../SocialMediaAPI.DAL/SocialMediaAPI.DAL.csproj",
@@ -3739,6 +3759,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 7.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.9",
+      "SocialMediaAPI.BLL >= 1.0.0",
       "SocialMediaAPI.DAL >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
@@ -3771,6 +3792,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\Korisnik\\Desktop\\Codes\\WebDev\\Social-Media-GDPR\\API\\SocialMediaAPI\\SocialMediaAPI.BLL\\SocialMediaAPI.BLL.csproj": {
+              "projectPath": "C:\\Users\\Korisnik\\Desktop\\Codes\\WebDev\\Social-Media-GDPR\\API\\SocialMediaAPI\\SocialMediaAPI.BLL\\SocialMediaAPI.BLL.csproj"
+            },
             "C:\\Users\\Korisnik\\Desktop\\Codes\\WebDev\\Social-Media-GDPR\\API\\SocialMediaAPI\\SocialMediaAPI.DAL\\SocialMediaAPI.DAL.csproj": {
               "projectPath": "C:\\Users\\Korisnik\\Desktop\\Codes\\WebDev\\Social-Media-GDPR\\API\\SocialMediaAPI\\SocialMediaAPI.DAL\\SocialMediaAPI.DAL.csproj"
             }

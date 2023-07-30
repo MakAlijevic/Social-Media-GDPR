@@ -1155,6 +1155,20 @@
             "rid": "win"
           }
         }
+      },
+      "SocialMediaAPI.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9"
+        },
+        "compile": {
+          "bin/placeholder/SocialMediaAPI.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SocialMediaAPI.DAL.dll": {}
+        }
       }
     }
   },
@@ -3500,6 +3514,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "SocialMediaAPI.DAL/1.0.0": {
+      "type": "project",
+      "path": "../SocialMediaAPI.DAL/SocialMediaAPI.DAL.csproj",
+      "msbuildProject": "../SocialMediaAPI.DAL/SocialMediaAPI.DAL.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3507,7 +3526,8 @@
       "Microsoft.EntityFrameworkCore >= 7.0.9",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.9",
-      "Microsoft.EntityFrameworkCore.Tools >= 7.0.9"
+      "Microsoft.EntityFrameworkCore.Tools >= 7.0.9",
+      "SocialMediaAPI.DAL >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3536,7 +3556,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Korisnik\\Desktop\\Codes\\WebDev\\Social-Media-GDPR\\API\\SocialMediaAPI\\SocialMediaAPI.DAL\\SocialMediaAPI.DAL.csproj": {
+              "projectPath": "C:\\Users\\Korisnik\\Desktop\\Codes\\WebDev\\Social-Media-GDPR\\API\\SocialMediaAPI\\SocialMediaAPI.DAL\\SocialMediaAPI.DAL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

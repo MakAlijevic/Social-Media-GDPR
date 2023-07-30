@@ -21,10 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\SocialMediaAPI.BLL\SocialMediaAPI.BLL.csproj" />
     <ProjectReference Include="..\SocialMediaAPI.DAL\SocialMediaAPI.DAL.csproj" />
   </ItemGroup>
 

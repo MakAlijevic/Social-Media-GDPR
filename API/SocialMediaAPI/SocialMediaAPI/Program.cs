@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using SocialMediaAPI.BLL.Interface;
+using SocialMediaAPI.BLL.Services;
 using SocialMediaAPI.DAL.Data;
+using SocialMediaAPI.DAL.Interface;
+using SocialMediaAPI.DAL.Repository;
 
 namespace SocialMediaAPI
 {
@@ -18,6 +22,9 @@ namespace SocialMediaAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
