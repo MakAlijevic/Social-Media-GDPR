@@ -1,1 +1,156 @@
-<h1 class="text-red-400">Hello World</h1>
+<nav class="bg-maincolor border-textcolor dark:bg-maincolor">
+    <div class="flex flex-wrap items-center justify-between p-4">
+        <a href="https://flowbite.com/" class="flex items-center">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-textcolor">Flowbite</span>
+        </a>
+        <div class="flex md:order-1">
+            <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
+                aria-expanded="false"
+                class="md:hidden text-buttoncolor dark:text-buttoncolor rounded-lg text-sm p-2.5 mr-1">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
+            <div class="relative hidden md:block" style="width: 400px;">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-buttoncolor dark:text-buttoncolor" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search icon</span>
+                </div>
+                <input type="text" id="search-navbar"
+                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-white"
+                    placeholder="Search...">
+            </div>
+            <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
+                aria-controls="default-sidebar" type="button"
+                class="inline-flex items-center p-2 mt-0 ml-3 text-sm rounded-lg md:hidden text-buttoncolor dark:text-buttoncolor rounded-lg">
+                <span class="sr-only">Open sidebar</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" fill-rule="evenodd"
+                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
+            <div class="relative mt-3 md:hidden">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input type="text" id="search-navbar"
+                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-white"
+                    placeholder="Search...">
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="p-4 md:ml-64">
+    <aside id="default-sidebar"
+        class="fixed mt-0 md:mt-17 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
+        aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-maincolor dark:bg-maincolor">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a routerLink="/homepage"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg aria-hidden="true"
+                            class="w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                        </svg>
+                        <span class="ml-3">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/organizations"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Friends</span>
+                    </a>
+                </li>
+                <li>
+                    <button type="button"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-textcolor dark:hover:bg-gray-700"
+                        aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">>
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                        </svg>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>My
+                            Organizations</span>
+                        <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                        <li>
+                            <a routerLink="/organization"
+                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700">Organization
+                                1</a>
+                        </li>
+                        <li>
+                            <a routerLink="/organization"
+                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700">Organization
+                                2</a>
+                        </li>
+                        <li>
+                            <a routerLink="/organization"
+                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700">Organization
+                                3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a routerLink="/profile"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg aria-hidden="true"
+                            class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <router-outlet></router-outlet>
+</div>

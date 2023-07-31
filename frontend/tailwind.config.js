@@ -2,7 +2,8 @@
 module.exports = {
   content: ["./src/**/*.{html,js}",
     './pages/**/*.{html,js}',
-    './components/**/*.{html,js}'],
+    './components/**/*.{html,js}',
+    "./node_modules/flowbite/**/*.js"],
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
@@ -828,6 +829,7 @@ module.exports = {
       12: '3rem',
       14: '3.5rem',
       16: '4rem',
+      17: '4.35rem',
       20: '5rem',
       24: '6rem',
       28: '7rem',
@@ -989,7 +991,18 @@ module.exports = {
       40: '40',
       50: '50',
     },
+    extend: {
+      colors: {
+        'maincolor': '#FFFFF2',
+        'backgroundcolor': '#FFD1C1',
+        'buttoncolor': 'FF987F',
+        'lightcolor': '#faeee8',
+        'textcolor': '#452F33',
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
 
