@@ -25,7 +25,8 @@ namespace SocialMediaAPI.DAL.Repository
         }
         public async Task<Policy> GetPolicyById(Guid id)
         {
-            return await context.Policies.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await context.Policies.FirstOrDefaultAsync(x => x.Id == id);
+            return user;
         }
     }
 }

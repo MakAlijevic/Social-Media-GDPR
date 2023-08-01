@@ -12,5 +12,6 @@ namespace SocialMediaAPI.BLL.Interface
     {
         Task<User> RegisterUser(CreateUserDto user);
         Task<User> GetUserByEmail(string email);
+        Task<User> GetUserById(Guid id);
     }
 }

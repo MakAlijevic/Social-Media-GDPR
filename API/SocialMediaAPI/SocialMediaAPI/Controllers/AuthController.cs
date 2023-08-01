@@ -37,6 +37,7 @@ namespace SocialMediaAPI.Controllers
                 Email = request.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
+                PolicyId = request.PolicyId
             };
             try
             {

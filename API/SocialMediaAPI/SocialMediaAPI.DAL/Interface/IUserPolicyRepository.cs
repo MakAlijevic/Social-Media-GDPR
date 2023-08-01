@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace SocialMediaAPI.DAL.Interface
 {
-    public interface IUserRepository
+    public interface IUserPolicyRepository
     {
-        Task<User> RegisterUser(User user);
-        Task<User> GetUserByEmail(string email);
-        Task<User> GetUserById(Guid id);
+        Task<UserPolicy> AcceptPolicy(UserPolicy policy);
     }
 }

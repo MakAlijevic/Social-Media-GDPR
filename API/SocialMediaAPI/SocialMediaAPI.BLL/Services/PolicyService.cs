@@ -14,10 +14,13 @@ namespace SocialMediaAPI.BLL.Services
     public class PolicyService : IPolicyService
     {
         private IPolicyRepository policyRepository;
-        public PolicyService(IPolicyRepository policyRepository)
+        private IUserPolicyRepository userPolicyRepository;
+        public PolicyService(IPolicyRepository policyRepository, IUserPolicyRepository userPolicyRepository)
         {
             this.policyRepository = policyRepository;
+            this.userPolicyRepository = userPolicyRepository;
         }
+
         public async Task<Policy> AddPolicy(CreatePolicyDto policyDto)
         {
             if(policyDto.Name.IsNullOrEmpty() || policyDto.Content.IsNullOrEmpty())
@@ -44,6 +47,20 @@ namespace SocialMediaAPI.BLL.Services
             }
 
             return policy;
+        }
+
+        public async Task<UserPolicy> AcceptPolicyWithoutValidation(Guid policyId, Guid userId)
+        {
+
+            var userPolicy = new UserPolicy
+            {
+                UserId = userId,
+                PolicyId = policyId,
+                IsAccepted = true,
+                CreatedAt = DateTime.Now,
+            };
+
+            return await userPolicyRepository.AcceptPolicy(userPolicy);
         }
     }
 }

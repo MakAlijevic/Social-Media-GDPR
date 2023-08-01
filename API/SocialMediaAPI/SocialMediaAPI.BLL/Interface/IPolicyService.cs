@@ -12,5 +12,6 @@ namespace SocialMediaAPI.BLL.Interface
     {
         Task<Policy> AddPolicy(CreatePolicyDto policyDto);
         Task<Policy> GetPolicyById(Guid id);
+        Task<UserPolicy> AcceptPolicyWithoutValidation(Guid policyId, Guid userId);
     }
 }

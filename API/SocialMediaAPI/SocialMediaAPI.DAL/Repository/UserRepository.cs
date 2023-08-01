@@ -26,22 +26,15 @@ namespace SocialMediaAPI.DAL.Repository
             return await Task.FromResult(user);
         }
 
-        public async Task<bool> IsEmailInUse(string email)
-        {
-            var existingUser = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
-            if (existingUser != null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
         public async Task<User> GetUserByEmail(string email)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return user;
+        }
+
+        public async Task<User> GetUserById(Guid id)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
             return user;
         }
     }

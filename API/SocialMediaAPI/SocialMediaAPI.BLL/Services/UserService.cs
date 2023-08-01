@@ -13,17 +13,29 @@ namespace SocialMediaAPI.BLL.Services
     public class UserService : IUserService
     {
         private IUserRepository userRepository;
-        public UserService(IUserRepository userRepository) 
+        private IPolicyService policyService;
+        public UserService(IUserRepository userRepository, IPolicyService policyService) 
         {
             this.userRepository = userRepository;
+            this.policyService = policyService;
         }
         public async Task<User> RegisterUser(CreateUserDto user)
         {
-            var existingUser = await userRepository.IsEmailInUse(user.Email);
-            if (existingUser == false)
+            try
+            {
+            var policy = await policyService.GetPolicyById(user.PolicyId);
+            }
+            catch(Exception)
+            {
+                throw new Exception("User can't be created without accepting the policy.");
+            }
+
+            var existingUser = await userRepository.GetUserByEmail(user.Email);
+            if (existingUser != null)
             {
                 throw new Exception("User with that email already exists.");
             }
+
             var newUser = new User
             {
                 FirstName = user.FirstName,
@@ -34,7 +46,15 @@ namespace SocialMediaAPI.BLL.Services
                 CreatedAt = DateTime.Now,
             };
 
-           return await userRepository.RegisterUser(newUser);
+            var registeredUser = await userRepository.RegisterUser(newUser);
+            if(registeredUser == null) 
+            {
+                throw new Exception("User not created successfully. Please try again.");
+            }
+            
+            await policyService.AcceptPolicyWithoutValidation(user.PolicyId, registeredUser.Id);
+
+            return registeredUser;
             
         }
 
@@ -44,6 +64,17 @@ namespace SocialMediaAPI.BLL.Services
             if (user == null)
             {
                 throw new Exception("User with that email doesn't exist!");
+            }
+
+            return user;
+        }
+
+        public async Task<User> GetUserById(Guid id)
+        {
+            var user = await userRepository.GetUserById(id);
+            if(user == null)
+            {
+                throw new Exception("User doesn't exist");
             }
 
             return user;
