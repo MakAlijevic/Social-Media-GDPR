@@ -28,5 +28,18 @@ namespace SocialMediaAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Policy>> GetPolicyById(Guid id)
+        {
+            try
+            {
+                return Ok(await policyService.GetPolicyById(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

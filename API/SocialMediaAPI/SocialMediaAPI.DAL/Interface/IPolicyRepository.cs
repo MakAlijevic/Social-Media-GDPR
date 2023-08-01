@@ -10,5 +10,6 @@ namespace SocialMediaAPI.DAL.Interface
     public interface IPolicyRepository
     {
         Task<Policy> AddPolicy(Policy policy);
+        Task<Policy> GetPolicyById(Guid id);
     }
 }

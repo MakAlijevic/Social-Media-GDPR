@@ -34,5 +34,16 @@ namespace SocialMediaAPI.BLL.Services
             return await policyRepository.AddPolicy(policy);
 
         }
+
+        public async Task<Policy> GetPolicyById(Guid id)
+        {
+            var policy = await policyRepository.GetPolicyById(id);
+            if(policy == null)
+            {
+                throw new Exception("Policy doesn't exist");
+            }
+
+            return policy;
+        }
     }
 }

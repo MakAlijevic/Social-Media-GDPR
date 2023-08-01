@@ -11,5 +11,6 @@ namespace SocialMediaAPI.BLL.Interface
     public interface IPolicyService
     {
         Task<Policy> AddPolicy(CreatePolicyDto policyDto);
+        Task<Policy> GetPolicyById(Guid id);
     }
 }
