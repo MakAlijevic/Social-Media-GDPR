@@ -32,6 +32,8 @@ namespace SocialMediaAPI
 
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IPolicyService, PolicyService>();
+            builder.Services.AddTransient<IPolicyRepository, PolicyRepository>();
 
             var app = builder.Build();
 
