@@ -15,7 +15,7 @@
                 </svg>
                 <span class="sr-only">Search</span>
             </button>
-            <div class="relative hidden md:block" style="width: 400px;">
+            <div class="relative hidden md:block mr-32" style="width: 400px;">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg class="w-4 h-4 text-buttoncolor dark:text-buttoncolor" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -25,7 +25,7 @@
                     <span class="sr-only">Search icon</span>
                 </div>
                 <input type="text" id="search-navbar"
-                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-white"
+                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
                     placeholder="Search...">
             </div>
             <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
@@ -50,7 +50,7 @@
                     </svg>
                 </div>
                 <input type="text" id="search-navbar"
-                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-white"
+                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
                     placeholder="Search...">
             </div>
         </div>
@@ -58,15 +58,15 @@
 </nav>
 
 
-<div class="p-4 md:ml-64">
+<div class="md:ml-64 md:mr-64">
     <aside id="default-sidebar"
         class="fixed mt-0 md:mt-17 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
         aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto bg-maincolor dark:bg-maincolor">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a routerLink="/homepage"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a routerLink="/home"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
                         <svg aria-hidden="true"
                             class="w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +78,7 @@
                 </li>
                 <li>
                     <a routerLink="/organizations"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor"
                             class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">
@@ -90,11 +90,11 @@
                 </li>
                 <li>
                     <button type="button"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-textcolor dark:hover:bg-gray-700"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group  dark:text-textcolor dark:hover:bg-lightcolor"
                         aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor"
-                            class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">>
+                            class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
                         </svg>
@@ -110,24 +110,24 @@
                     <ul id="dropdown-example" class="hidden py-2 space-y-2">
                         <li>
                             <a routerLink="/organization"
-                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700">Organization
+                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group  dark:hover:bg-lightcolor">Organization
                                 1</a>
                         </li>
                         <li>
                             <a routerLink="/organization"
-                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700">Organization
+                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group  dark:hover:bg-lightcolor">Organization
                                 2</a>
                         </li>
                         <li>
                             <a routerLink="/organization"
-                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700">Organization
+                                class="flex items-center w-full p-2 dark:text-textcolor transition duration-75 rounded-lg pl-11 group  dark:hover:bg-lightcolor">Organization
                                 3</a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a routerLink="/profile"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
                         <svg aria-hidden="true"
                             class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +139,7 @@
                 </li>
                 <li>
                     <a
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor"
                             class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
@@ -152,5 +152,10 @@
             </ul>
         </div>
     </aside>
-    <router-outlet></router-outlet>
+    <div class="fixed hidden lg:block">
+        <p class="fixed bg-maincolor z-41 dark:bg-maincolor right-0 w-64 h-screen">
+            <b>A complete portal for geeks </b>
+        </p>
+    </div>
+    <router-outlet class="p-5"></router-outlet>
 </div>
