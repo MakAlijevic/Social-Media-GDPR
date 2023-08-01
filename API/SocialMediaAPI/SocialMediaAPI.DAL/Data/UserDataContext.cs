@@ -16,5 +16,7 @@ namespace SocialMediaAPI.DAL.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Policy> Policies { get; set; }
+        public DbSet<UserPolicy> UserPolicies { get; set; }
     }
 }
