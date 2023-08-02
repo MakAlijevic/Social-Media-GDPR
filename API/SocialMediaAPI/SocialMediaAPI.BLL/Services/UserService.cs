@@ -23,7 +23,7 @@ namespace SocialMediaAPI.BLL.Services
         {
             try
             {
-            var policy = await policyService.GetPolicyById(user.PolicyId);
+                var policy = await policyService.GetPolicyById(user.PolicyId);
             }
             catch(Exception)
             {
