@@ -77,6 +77,8 @@ namespace SocialMediaAPI
             builder.Services.AddTransient<IUserPolicyRepository, UserPolicyRepository>();
             builder.Services.AddTransient<IFollowService, FollowService>();
             builder.Services.AddTransient<IFollowRepository, FollowRepository>();
+            builder.Services.AddTransient<IPostService, PostService>();
+            builder.Services.AddTransient<IPostRepository, PostRepository>();
 
             var app = builder.Build();
 
