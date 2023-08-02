@@ -30,5 +30,18 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
+        [HttpDelete, Authorize]
+        public async Task<ActionResult<string>> Unfollow(AddFollowDto unfollow)
+        {
+            try
+            {
+                return Ok(await followService.Unfollow(unfollow));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

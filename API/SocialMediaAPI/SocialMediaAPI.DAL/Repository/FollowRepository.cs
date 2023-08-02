@@ -29,5 +29,12 @@ namespace SocialMediaAPI.DAL.Repository
             var existingFollow = await context.Follows.FirstOrDefaultAsync(x => x.FollowerId == followerId || x.FollowingId == followingId);
             return existingFollow;
         }
+
+       public async Task Unfollow(Follow follow)
+       {
+            context.Follows.Remove(follow);
+            await context.SaveChangesAsync();
+            return;
+       }
     }
 }
