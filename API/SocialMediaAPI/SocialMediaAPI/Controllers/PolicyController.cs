@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialMediaAPI.BLL.DTO;
 using SocialMediaAPI.BLL.Interface;
@@ -16,7 +17,7 @@ namespace SocialMediaAPI.Controllers
             this.policyService = policyService;
         }
 
-        [HttpPost("addPolicy")]
+        [HttpPost("addPolicy"), Authorize]
         public async Task<ActionResult<Policy>> AddPolicy(CreatePolicyDto policyDto)
         {
             try
