@@ -25,7 +25,7 @@
                     <span class="sr-only">Search icon</span>
                 </div>
                 <input type="text" id="search-navbar"
-                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
+                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-2xl dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
                     placeholder="Search...">
             </div>
             <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
@@ -50,7 +50,7 @@
                     </svg>
                 </div>
                 <input type="text" id="search-navbar"
-                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-lg dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
+                    class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-2xl dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
                     placeholder="Search...">
             </div>
         </div>
@@ -60,7 +60,7 @@
 
 <div class="md:ml-64 md:mr-64">
     <aside id="default-sidebar"
-        class="fixed mt-0 md:mt-17 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
+        class="absolute mt-0 md:mt-17 left-0 z-40 w-64 h-full transition-transform -translate-x-full md:translate-x-0"
         aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto bg-maincolor dark:bg-maincolor">
             <ul class="space-y-2 font-medium">
@@ -152,8 +152,8 @@
             </ul>
         </div>
     </aside>
-    <div class="fixed hidden lg:block">
-        <div class="fixed bg-maincolor z-41 dark:bg-maincolor right-0 w-64 h-screen overflow-y-auto">
+    <div class="flex hidden lg:block">
+        <div class="absolute bg-maincolor z-41 dark:bg-maincolor right-0 w-64 h-max overflow-y-auto">
             <p class="ml-5 mt-2 font-medium text-xl text-textcolor">Friends</p>
             <ul>
                 <app-friends></app-friends>

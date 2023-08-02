@@ -995,7 +995,7 @@ module.exports = {
       colors: {
         'maincolor': '#FFFFF2',
         'backgroundcolor': '#FFD1C1',
-        'buttoncolor': 'FF987F',
+        'buttoncolor': '#FF987F',
         'lightcolor': '#faeee8',
         'textcolor': '#452F33',
       }

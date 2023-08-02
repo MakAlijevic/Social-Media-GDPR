@@ -1,4 +1,34 @@
 <div class="grid grid-cols-12 gap-5 mx-5">
-    <div class="col-span-12 h-32 w-full bg-maincolor rounded-3xl"></div>
-    <div class="col-span-12 h-32 w-full bg-maincolor rounded-3xl"></div>
+    <div class="col-span-12 h-fit w-full bg-maincolor rounded-3xl">
+        <p class="ml-6 font-medium text-2xl mt-4 text-textcolor">
+            Add new post
+        </p>
+        <hr class="mt-5 mx-5">
+        <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 p-4 max-w-2xl">
+            <textarea class="description bg-lightcolor sec p-3 h-32 border outline-none rounded-2xl" spellcheck="false"
+                placeholder="Describe everything about this post here"></textarea>
+            <!-- buttons -->
+            <div class="buttons flex mt-2">
+                <div
+                    class="btn border p-1 px-4 font-semibold cursor-pointer text-textcolor ml-auto bg-lightcolor rounded-2xl">
+                    Cancel</div>
+                <div
+                    class="btn border border-textcolor p-1 px-4 font-semibold cursor-pointer text-textcolor ml-2 bg-buttoncolor rounded-2xl">
+                    Post</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-12 h-fit w-full bg-maincolor rounded-3xl p-4">
+        <p class="ml-6 font-medium text-2xl mt-2 mb-5 text-textcolor">
+            Posts
+        </p>
+        <hr class="mt-5 mx-1 mb-5">
+        <app-post></app-post>
+        <app-post></app-post>
+        <app-post></app-post>
+        <app-post></app-post>
+        <app-post></app-post>
+        <app-post></app-post>
+        <app-post></app-post>
+    </div>
 </div>
