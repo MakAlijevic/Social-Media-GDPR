@@ -12,5 +12,6 @@ namespace SocialMediaAPI.DAL.Interface
         Task<User> RegisterUser(User user);
         Task<User> GetUserByEmail(string email);
         Task<User> GetUserById(Guid id);
+        Task SetOnlineState(Guid userId, bool state);
     }
 }

@@ -37,5 +37,13 @@ namespace SocialMediaAPI.DAL.Repository
             var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
             return user;
         }
+
+        public async Task SetOnlineState(Guid userId, bool state)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            user.IsOnline = state;
+            await context.SaveChangesAsync();
+            return;
+        }
     }
 }

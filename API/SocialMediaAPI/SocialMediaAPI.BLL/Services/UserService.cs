@@ -79,5 +79,21 @@ namespace SocialMediaAPI.BLL.Services
 
             return user;
         }
+
+        public async Task SetOnline(Guid userId)
+        {
+            await userRepository.SetOnlineState(userId, true);
+            return;
+        }
+
+        public async Task SetOffline(Guid authUserId, Guid userId)
+        {
+            if (authUserId != userId)
+            {
+                throw new UnauthorizedAccessException("You are not authorized to access this resource.");
+            }
+            await userRepository.SetOnlineState(userId, false);
+            return;
+        }
     }
 }

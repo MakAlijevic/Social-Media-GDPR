@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using SocialMediaAPI.BLL.Interface;
+using SocialMediaAPI.BLL.Services;
 
 namespace SocialMediaAPI.Controllers
 {
@@ -64,7 +65,32 @@ namespace SocialMediaAPI.Controllers
 
                 string token = CreateToken(user);
 
+                await userService.SetOnline(user.Id);
+
                 return Ok(token);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("logout"), Authorize]
+        public async Task<ActionResult> Logout(Guid userId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                await userService.SetOffline(authUserId, userId);
+                return Ok();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
             }
             catch (Exception ex)
             {
