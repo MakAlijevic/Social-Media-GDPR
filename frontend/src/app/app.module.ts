@@ -10,6 +10,10 @@ import { FriendsComponent } from './friends/friends.component';
 import { PostComponent } from './home/post/post.component';
 import { FriendsPageComponent } from './friends-page/friends-page.component';
 import { FriendProfileComponent } from './friends-page/friend-profile/friend-profile.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfilePostsComponent } from './profile/profile-posts/profile-posts.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MessagesFriendsComponent } from './messages/messages-friends/messages-friends.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,10 @@ import { FriendProfileComponent } from './friends-page/friend-profile/friend-pro
     PostComponent,
     FriendsPageComponent,
     FriendProfileComponent,
+    ProfileComponent,
+    ProfilePostsComponent,
+    MessagesComponent,
+    MessagesFriendsComponent,
   ],
   imports: [
     BrowserModule,
