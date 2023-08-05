@@ -1,4 +1,5 @@
-﻿using SocialMediaAPI.DAL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SocialMediaAPI.DAL.Data;
 using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Models;
 using System;
@@ -22,6 +23,19 @@ namespace SocialMediaAPI.DAL.Repository
             context.Add(post);
             await context.SaveChangesAsync();
             return await Task.FromResult(post);
+        }
+
+        public async Task DeletePost(Post post)
+        {
+            context.Remove(post);
+            await context.SaveChangesAsync();
+            return;
+        }
+
+        public async Task<Post> GetPostById(Guid postId)
+        {
+            var existingPost = await context.Posts.FirstOrDefaultAsync(post => post.Id == postId);
+            return existingPost;
         }
     }
 }

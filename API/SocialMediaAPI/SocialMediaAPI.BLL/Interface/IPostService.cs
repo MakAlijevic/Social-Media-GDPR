@@ -11,5 +11,7 @@ namespace SocialMediaAPI.BLL.Interface
     public interface IPostService
     {
         Task<Post> AddPost(CreatePostDto postDto);
+
+        Task<string> DeletePost(Guid authUserId, DeletePostDto deletePostDto);
     }
 }
