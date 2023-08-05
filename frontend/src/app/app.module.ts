@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { FriendsComponent } from './friends/friends.component';
 import { PostComponent } from './home/post/post.component';
+import { FriendsPageComponent } from './friends-page/friends-page.component';
+import { FriendProfileComponent } from './friends-page/friend-profile/friend-profile.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { PostComponent } from './home/post/post.component';
     HomeComponent,
     FriendsComponent,
     PostComponent,
+    FriendsPageComponent,
+    FriendProfileComponent,
   ],
   imports: [
     BrowserModule,
