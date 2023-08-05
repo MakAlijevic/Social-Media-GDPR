@@ -4,13 +4,17 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FriendsPageComponent } from './friends-page/friends-page.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MessagesComponent } from './messages/messages.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'friends', component: FriendsPageComponent }
+  { path: 'friends', component: FriendsPageComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'messages', component: MessagesComponent }
 ];
 
 @NgModule({

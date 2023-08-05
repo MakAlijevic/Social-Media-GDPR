@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  selector: 'app-profile-posts',
+  templateUrl: './profile-posts.component.html',
+  styleUrls: ['./profile-posts.component.css']
 })
-export class PostComponent {
+export class ProfilePostsComponent {
 
   comments = false;
 
