@@ -10,7 +10,8 @@ namespace SocialMediaAPI.BLL.Interface
 {
     public interface IFollowService
     {
-        Task<Follow> AddFollow(AddFollowDto addFollowDto);
-        Task<string> Unfollow(AddFollowDto unfollowDto);
+        Task<Follow> AddFollow(Guid authUserId, AddFollowDto addFollowDto);
+        Task<string> Unfollow(Guid authUserId, AddFollowDto unfollowDto);
+        Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId);
     }
 }

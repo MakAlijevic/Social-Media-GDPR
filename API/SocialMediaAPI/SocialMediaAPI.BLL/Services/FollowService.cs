@@ -20,8 +20,10 @@ namespace SocialMediaAPI.BLL.Services
             this.userRepository = userRepository;
 
         }
-        public async Task<Follow> AddFollow(AddFollowDto addFollowDto)
+        public async Task<Follow> AddFollow(Guid authUserId, AddFollowDto addFollowDto)
         {
+            CheckIsUserValidAgainstJWT(authUserId, addFollowDto.FollowerId);
+
             try
             {
                 await ValidateFollowUsers(addFollowDto);
@@ -47,8 +49,10 @@ namespace SocialMediaAPI.BLL.Services
             return await followRepository.AddFollow(follow);
         }
 
-        public async Task<string> Unfollow(AddFollowDto unfollowDto)
+        public async Task<string> Unfollow(Guid authUserId, AddFollowDto unfollowDto)
         {
+            CheckIsUserValidAgainstJWT(authUserId, unfollowDto.FollowerId);
+
             try
             {
                 await ValidateFollowUsers(unfollowDto);
@@ -75,6 +79,47 @@ namespace SocialMediaAPI.BLL.Services
             }
 
             return ("Successfully unfollowed");
+        }
+
+        public async Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId)
+        {
+            CheckIsUserValidAgainstJWT(authUserId, userId);
+
+            var allFollows = await followRepository.GetAllFollows(userId);
+
+            var resultFollows = new List<ReturnFollowDto>();
+
+            foreach (var follow in allFollows)
+            {
+                var user = await userRepository.GetUserById(follow.FollowingId);
+
+                if(user != null)
+                {
+                    var returnFollow = new ReturnFollowDto
+                    {
+                        UserId = follow.FollowerId,
+                        FollowingId = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        CreatedAt = user.CreatedAt,
+                    };
+
+                    resultFollows.Add(returnFollow);
+                }
+            }
+
+            return resultFollows;
+        }
+
+        private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)
+        {
+            if (authUserId != userId)
+            {
+                throw new UnauthorizedAccessException("You are not authorized to access this resource.");
+            }
+
+            return true;
         }
 
         private async Task<bool> ValidateFollowUsers(AddFollowDto addFollowDto)
