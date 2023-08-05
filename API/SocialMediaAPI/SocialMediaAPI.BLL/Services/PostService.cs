@@ -37,5 +37,32 @@ namespace SocialMediaAPI.BLL.Services
 
             return await postRepository.AddPost(post);
         }
+
+        public async Task<string> DeletePost(Guid authUserId, DeletePostDto deletePostDto)
+        {
+            CheckIsUserValidAgainstJWT(authUserId, deletePostDto.Author);
+
+            try
+            {
+                var post = await postRepository.GetPostById(deletePostDto.PostId);
+                await postRepository.DeletePost(post);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unsucessfully deleted post");
+            }
+
+            return ("Successfully deleted post");
+        }
+
+        private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)
+        {
+            if (authUserId != userId)
+            {
+                throw new UnauthorizedAccessException("You are not authorized to access this resource.");
+            }
+
+            return true;
+        }
     }
 }

@@ -97,7 +97,6 @@ namespace SocialMediaAPI
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
