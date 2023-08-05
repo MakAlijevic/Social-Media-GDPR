@@ -15,6 +15,7 @@ namespace SocialMediaAPI.DAL.Models
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public bool IsOnline { get; set; }
         public DateTime CreatedAt { get; set; }
 
         [JsonIgnore]
