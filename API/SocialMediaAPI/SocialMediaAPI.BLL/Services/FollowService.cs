@@ -97,11 +97,11 @@ namespace SocialMediaAPI.BLL.Services
                 {
                     var returnFollow = new ReturnFollowDto
                     {
-                        UserId = follow.FollowerId,
-                        FollowingId = user.Id,
+                        UserId = user.Id,
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Email = user.Email,
+                        IsOnline = user.IsOnline,
                         CreatedAt = user.CreatedAt,
                     };
 
@@ -110,6 +110,37 @@ namespace SocialMediaAPI.BLL.Services
             }
 
             return resultFollows;
+        }
+
+        public async Task<List<ReturnFollowDto>> GetOnlineFollows(Guid authUserId, Guid userId)
+        {
+            CheckIsUserValidAgainstJWT(authUserId, userId);
+
+            var allFollows = await followRepository.GetAllFollows(userId);
+
+            var onlineFollows = new List<ReturnFollowDto>();
+
+            foreach (var follow in allFollows)
+            {
+                var user = await userRepository.GetUserById(follow.FollowingId);
+
+                if (user != null && user.IsOnline == true)
+                {
+                    var returnFollow = new ReturnFollowDto
+                    {
+                        UserId = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        IsOnline = user.IsOnline,
+                        CreatedAt = user.CreatedAt,
+                    };
+
+                    onlineFollows.Add(returnFollow);
+                }
+            }
+
+            return onlineFollows;
         }
 
         private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)
@@ -143,5 +174,6 @@ namespace SocialMediaAPI.BLL.Services
             }
             return false;
         }
+
     }
 }

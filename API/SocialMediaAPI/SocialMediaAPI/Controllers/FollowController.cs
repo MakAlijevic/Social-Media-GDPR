@@ -63,7 +63,7 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
-        [HttpGet, Authorize]
+        [HttpGet("allFollows"), Authorize]
         public async Task<ActionResult<List<ReturnFollowDto>>> GetAllFollows(Guid userId)
         {
             try
@@ -85,5 +85,26 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
+        [HttpGet("onlineFollows"), Authorize]
+        public async Task<ActionResult<List<ReturnFollowDto>>> GetOnlineFollows(Guid userId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await followService.GetOnlineFollows(authUserId, userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

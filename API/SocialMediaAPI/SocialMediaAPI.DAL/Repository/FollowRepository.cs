@@ -26,7 +26,7 @@ namespace SocialMediaAPI.DAL.Repository
 
         public async Task<Follow> CheckExistingFollow(Guid followerId, Guid followingId)
         {
-            var existingFollow = await context.Follows.FirstOrDefaultAsync(x => x.FollowerId == followerId || x.FollowingId == followingId);
+            var existingFollow = await context.Follows.FirstOrDefaultAsync(x => x.FollowerId == followerId && x.FollowingId == followingId);
             return existingFollow;
         }
 

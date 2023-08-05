@@ -13,5 +13,7 @@ namespace SocialMediaAPI.BLL.Interface
         Task<Follow> AddFollow(Guid authUserId, AddFollowDto addFollowDto);
         Task<string> Unfollow(Guid authUserId, AddFollowDto unfollowDto);
         Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId);
+        Task<List<ReturnFollowDto>> GetOnlineFollows(Guid authUserId, Guid userId);
+
     }
 }
