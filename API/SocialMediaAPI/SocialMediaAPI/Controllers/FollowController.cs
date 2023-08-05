@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SocialMediaAPI.BLL.DTO;
 using SocialMediaAPI.BLL.Interface;
 using SocialMediaAPI.DAL.Models;
+using System.Security.Claims;
 
 namespace SocialMediaAPI.Controllers
 {
@@ -22,7 +23,17 @@ namespace SocialMediaAPI.Controllers
         {
             try
             {
-                return Ok(await followService.AddFollow(follow));
+                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+
+                return Ok(await followService.AddFollow(authUserId, follow));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
             }
             catch (Exception ex)
             {
@@ -35,7 +46,38 @@ namespace SocialMediaAPI.Controllers
         {
             try
             {
-                return Ok(await followService.Unfollow(unfollow));
+                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await followService.Unfollow(authUserId, unfollow));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Authorize]
+        public async Task<ActionResult<List<ReturnFollowDto>>> GetAllFollows(Guid userId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await followService.GetAllFollows(authUserId, userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
             }
             catch (Exception ex)
             {

@@ -30,11 +30,17 @@ namespace SocialMediaAPI.DAL.Repository
             return existingFollow;
         }
 
-       public async Task Unfollow(Follow follow)
-       {
+        public async Task Unfollow(Follow follow)
+        {
             context.Follows.Remove(follow);
             await context.SaveChangesAsync();
             return;
-       }
+        }
+        
+        public async Task<List<Follow>> GetAllFollows(Guid userId)
+        {
+            var allFollows = await context.Follows.Where(x => x.FollowerId == userId).ToListAsync();
+            return allFollows;
+        }
     }
 }
