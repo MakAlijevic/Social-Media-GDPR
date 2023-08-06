@@ -34,7 +34,7 @@ namespace SocialMediaAPI.DAL.Repository
 
         public async Task<Post> GetPostById(Guid postId)
         {
-            var existingPost = await context.Posts.FirstOrDefaultAsync(post => post.Id == postId);
+            var existingPost = await context.Posts.Include(a => a.Comments).FirstOrDefaultAsync(post => post.Id == postId);
             return existingPost;
         }
     }

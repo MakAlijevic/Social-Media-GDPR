@@ -8,6 +8,7 @@ using SocialMediaAPI.DAL.Data;
 using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Repository;
 using Swashbuckle.AspNetCore.Filters;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SocialMediaAPI
@@ -79,6 +80,8 @@ namespace SocialMediaAPI
             builder.Services.AddTransient<IFollowRepository, FollowRepository>();
             builder.Services.AddTransient<IPostService, PostService>();
             builder.Services.AddTransient<IPostRepository, PostRepository>();
+            builder.Services.AddTransient<ICommentService, CommentService>();
+            builder.Services.AddTransient<ICommentRepository, CommentRepository>();
 
             var app = builder.Build();
 

@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace SocialMediaAPI.BLL.Interface
 {
-    public interface IPostService
+    public interface ICommentService
     {
-        Task<Post> AddPost(CreatePostDto postDto);
-        Task<ReturnPostDto> GetPostById(Guid postId);
-        Task<string> DeletePost(Guid authUserId, DeletePostDto deletePostDto);
+        Task<Comment> AddComment(Guid authUserId, AddCommentDto addCommentDto);
     }
 }
