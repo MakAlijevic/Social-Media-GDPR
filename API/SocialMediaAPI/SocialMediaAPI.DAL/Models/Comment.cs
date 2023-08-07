@@ -13,10 +13,8 @@ namespace SocialMediaAPI.DAL.Models
         public Guid Author { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
-
         [JsonIgnore]
         public Guid PostId { get; set; }
-
         [JsonIgnore]
         public Post Post { get; set; }
     }
