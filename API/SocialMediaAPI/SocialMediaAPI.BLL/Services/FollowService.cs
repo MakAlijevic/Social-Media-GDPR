@@ -33,7 +33,7 @@ namespace SocialMediaAPI.BLL.Services
                 throw ex;
             }
 
-            var existingFollow = await ValidateExistingFollow(addFollowDto);
+            var existingFollow = await ValidateExistingFollow(addFollowDto.FollowerId, addFollowDto.FollowingId);
             if(existingFollow == true)
             {
                 throw new Exception("User is already followed");
@@ -62,7 +62,7 @@ namespace SocialMediaAPI.BLL.Services
                 throw ex;
             }
 
-            var existingFollow = await ValidateExistingFollow(unfollowDto);
+            var existingFollow = await ValidateExistingFollow(unfollowDto.FollowerId, unfollowDto.FollowingId);
             if (existingFollow == false)
             {
                 throw new Exception("That follow doesn't exist");
@@ -143,6 +143,19 @@ namespace SocialMediaAPI.BLL.Services
             return onlineFollows;
         }
 
+        public async Task<bool> VerifyExistingFriendship(Guid userId1, Guid userId2)
+        {
+            var follow1 = await ValidateExistingFollow(userId1, userId2);
+            var follow2 = await ValidateExistingFollow(userId2, userId1);
+
+            if(follow1 != true || follow2 != true)
+            {
+                throw new Exception("Users must follow each other in order to send messages!");
+            }
+
+            return true;
+        }
+
         private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)
         {
             if (authUserId != userId)
@@ -165,9 +178,9 @@ namespace SocialMediaAPI.BLL.Services
             return true;
         }
 
-        private async Task<bool> ValidateExistingFollow(AddFollowDto addFollowDto)
+        private async Task<bool> ValidateExistingFollow(Guid followerId, Guid followingId)
         {
-            var existingFollow = await followRepository.CheckExistingFollow(addFollowDto.FollowerId, addFollowDto.FollowingId);
+            var existingFollow = await followRepository.CheckExistingFollow(followerId, followingId);
             if (existingFollow != null)
             {
                 return true;
