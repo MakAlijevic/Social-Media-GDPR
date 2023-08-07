@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'frontend';
 
-  showRegisterForm = false;
+  showRegisterForm = true;
   showLoginForm = false;
 }

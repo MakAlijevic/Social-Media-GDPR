@@ -1,0 +1,58 @@
+<!-- Main modal -->
+<div id="defaultModal" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden md:inset-0 h-112 mt-40">
+    <div class="relative w-full max-w-2xl max-h-full overflow-y-scroll">
+        <!-- Modal content -->
+        <div class="relative bg-maincolor rounded-lg">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t">
+                <h3 class="text-xl font-semibold text-textcolor">
+                    Terms of Service
+                </h3>
+                <button type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-textcolor rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                    data-modal-hide="defaultModal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <p class="text-base leading-relaxed text-textcolor">
+                    Welcome to ABC Company. At ABC Company, we are committed to protecting your privacy
+                    and safeguarding your personal information. By accessing or using our Website, you
+                    agree to the terms of this Privacy Policy. When you sign up for an account, we may
+                    collect personal information, such as your name, email address, postal address,
+                    phone number, and date of birth. Additionally, we automatically collect certain
+                    information when you visit our Website, including your IP address, browser type,
+                    device information, and pages visited. We use this data to create and manage your
+                    account, process your orders, and provide customer support. With your consent, we
+                    may use your email address to send you promotional offers, newsletters, and updates
+                    about our products and services. We do not sell your personal information to third
+                    parties without your explicit consent, but we may share it with trusted service
+                    providers who assist us in operating our Website and delivering our products and
+                    services. We take reasonable measures to protect your information, but no method of
+                    data transmission is 100% secure. Our Website may use cookies to enhance your user
+                    experience. We are not responsible for the privacy practices of third-party websites
+                    linked on our Website. Our Website is not intended for children under 13. If you
+                    believe we have inadvertently collected information from a child under 13, please
+                    contact us, and we will delete the information. This Privacy Policy may be updated
+                    from time to time, and the latest version will be posted on our Website. For any
+                    questions or concerns, please contact us at privacy@abccompany.com.
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                <button data-modal-hide="defaultModal" type="button"
+                    class="text-textcolor bg-buttoncolor  font-medium rounded-lg text-sm px-5 py-2.5 text-center">I
+                    accept</button>
+                <button data-modal-hide="defaultModal" type="button"
+                    class="text-textcolor bg-lightcolor  rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-textcolor focus:z-10">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
