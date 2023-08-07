@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { FriendsPageComponent } from './friends-page/friends-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MessagesComponent } from './messages/messages.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'friends', component: FriendsPageComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'messages', component: MessagesComponent }
+  { path: 'messages', component: MessagesComponent },
+  { path: 'search', component: SearchComponent }
 ];
 
 @NgModule({

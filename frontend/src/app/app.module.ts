@@ -14,6 +14,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfilePostsComponent } from './profile/profile-posts/profile-posts.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessagesFriendsComponent } from './messages/messages-friends/messages-friends.component';
+import { SearchComponent } from './search/search.component';
+import { SearchProfileComponent } from './search/search-profile/search-profile.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MessagesFriendsComponent } from './messages/messages-friends/messages-f
     ProfilePostsComponent,
     MessagesComponent,
     MessagesFriendsComponent,
+    SearchComponent,
+    SearchProfileComponent,
   ],
   imports: [
     BrowserModule,
