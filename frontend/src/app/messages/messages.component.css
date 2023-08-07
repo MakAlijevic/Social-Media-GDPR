@@ -1,0 +1,14 @@
+@media only screen and (max-width: 500px) {
+    #friends {
+        max-height: 200px !important;
+    }
+
+    #messages {
+        margin-top: 30px !important;
+    }
+
+    .message {
+        width: 280px !important;
+    }
+
+}
