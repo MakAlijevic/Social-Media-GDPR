@@ -9,9 +9,6 @@ import { MessagesComponent } from './messages/messages.component';
 import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'friends', component: FriendsPageComponent },
   { path: 'profile', component: ProfileComponent },
