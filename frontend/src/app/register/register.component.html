@@ -65,7 +65,8 @@
                         id="confirmpassword" placeholder="Confirm Password" />
                 </div>
                 <button type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal"
-                    class="block w-full bg-buttoncolor mt-4 py-2 rounded-2xl text-textcolor font-semibold mb-2">Register</button>
+                    class="block w-full bg-buttoncolor mt-4 py-2 rounded-2xl text-textcolor font-semibold mb-2"
+                    (click)="getActiveGdprPolicy()">Register</button>
                 <span class="text-sm ml-2">Already have an account? <a class=" hover:text-blue-500 cursor-pointer"
                         (click)="showLogin()">
                         Login
