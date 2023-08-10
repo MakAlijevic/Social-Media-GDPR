@@ -9,15 +9,15 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class GdprModalComponent implements OnInit {
 
-  gdprPolicy!: Policy;
+  activeRegisterPolicyGdpr!: Policy;
 
   constructor(private authService: AuthService) {
 
   }
 
   ngOnInit(): void {
-    this.authService.policyGdpr.subscribe(result => {
-      this.gdprPolicy = result;
+    this.authService.activeRegisterPolicyGdpr.subscribe(result => {
+      this.activeRegisterPolicyGdpr = result;
     })
   }
 

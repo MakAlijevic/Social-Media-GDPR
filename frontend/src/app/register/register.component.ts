@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { AuthService } from 'src/services/auth.service';
+import { FormBuilder } from '@angular/forms';
+import { RegisterUserDto } from 'src/models/RegisterUserDto.model';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,15 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class RegisterComponent {
 
-  constructor(private appComponent: AppComponent, private authService: AuthService) {
+  registerUserForm = this.formBuilder.group({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  constructor(private appComponent: AppComponent, private authService: AuthService, private formBuilder: FormBuilder) {
 
   }
 
@@ -18,8 +28,16 @@ export class RegisterComponent {
     this.appComponent.showLoginForm = true;
   }
 
-  getActiveGdprPolicy() {
-    this.authService.getActiveGdprPolicy();
+  getActiveGdprPolicyForRegister() {
+    this.authService.getActiveGdprPolicyForRegister();
+  }
+
+  registerUser() {
+    var registerUserDto = new RegisterUserDto(this.registerUserForm.value.firstName!, this.registerUserForm.value.lastName!, this.registerUserForm.value.email!, this.registerUserForm.value.password!, this.registerUserForm.value.confirmPassword!);
+    var status = this.authService.registerUserAndValidate(registerUserDto);
+    if (status === true) {
+      this.registerUserForm.reset();
+    }
   }
 
 }
