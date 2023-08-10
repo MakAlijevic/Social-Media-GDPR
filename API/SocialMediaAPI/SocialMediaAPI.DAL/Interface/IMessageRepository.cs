@@ -10,5 +10,6 @@ namespace SocialMediaAPI.DAL.Interface
     public interface IMessageRepository
     {
         Task<Message> AddMessage(Message message);
+        Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId);
     }
 }

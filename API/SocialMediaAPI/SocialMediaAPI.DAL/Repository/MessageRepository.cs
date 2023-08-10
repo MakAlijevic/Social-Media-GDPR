@@ -1,4 +1,5 @@
-﻿using SocialMediaAPI.DAL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SocialMediaAPI.DAL.Data;
 using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Models;
 using System;
@@ -21,6 +22,18 @@ namespace SocialMediaAPI.DAL.Repository
             context.Add(message);
             await context.SaveChangesAsync();
             return await Task.FromResult(message);
+        }
+
+        public async Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId)
+        {
+            var messages = await context.Messages
+                .Where(message =>
+                    (message.SenderId == FollowerId && message.RecieverId == FollowingId) ||
+                    (message.SenderId == FollowingId && message.RecieverId == FollowerId))
+                .OrderBy(message => message.CreatedAt)
+                .ToListAsync();
+
+            return messages;
         }
     }
 }
