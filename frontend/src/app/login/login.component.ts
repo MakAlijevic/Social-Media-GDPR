@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import { LoginUserDto } from 'src/models/LoginUserDto.model';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private appComponent: AppComponent, private router: Router) {
+  loginUserForm = this.formBuilder.group({
+    email: '',
+    password: ''
+  })
+
+  constructor(private appComponent: AppComponent, private formBuilder: FormBuilder, private authService: AuthService) {
 
   }
 
@@ -18,10 +25,12 @@ export class LoginComponent {
     this.appComponent.showRegisterForm = true;
   }
 
-  login() {
-    this.appComponent.showLoginForm = false;
-    this.appComponent.showRegisterForm = false;
-    this.router.navigate(['/home']);
+  loginUser() {
+    var loginUserDto = new LoginUserDto(this.loginUserForm.value.email!, this.loginUserForm.value.password!);
+    var status = this.authService.loginUser(loginUserDto);
+    if (status === true) {
+      this.loginUserForm.reset();
+    }
   }
 
 }

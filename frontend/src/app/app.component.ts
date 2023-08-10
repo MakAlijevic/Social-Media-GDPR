@@ -8,7 +8,6 @@ import { AuthService } from 'src/services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
   showRegisterForm = true;
   showLoginForm = false;
 

@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Policy } from '../models/Policy.model';
 import { BehaviorSubject } from 'rxjs';
 import policyEnum from 'src/enums/policyEnum';
 import { RegisterUserDto } from 'src/models/RegisterUserDto.model';
+import { LoginUserDto } from 'src/models/LoginUserDto.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class AuthService {
 
   public activeRegisterPolicyGdpr = new BehaviorSubject<Policy>(new Policy("", "", "", ""));
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getActiveGdprPolicyForRegister() {
     this.http.get<Policy>("https://localhost:7243/api/Policy?id=" + policyEnum.registerPolicyEnumId).subscribe(result => {
@@ -54,6 +56,24 @@ export class AuthService {
         return false;
       }
     })
-    return true;
+    return false;
+  }
+
+  loginUser(loginUserDto: LoginUserDto): boolean {
+    this.http.post("https://localhost:7243/api/Auth/login", loginUserDto, { responseType: 'text' }).subscribe({
+      next: (result) => {
+        localStorage.setItem("token", result)
+        alert("Successfully logged in!");
+        this.router.navigate(['/home']);
+        this.showLoginForm.next(false);
+        this.showRegisterForm.next(false);
+        return true;
+      },
+      error: (result) => {
+        alert("Unsuccessfull login : " + result.error);
+        return false;
+      }
+    });
+    return false;
   }
 }
