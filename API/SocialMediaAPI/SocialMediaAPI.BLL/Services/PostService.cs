@@ -40,6 +40,64 @@ namespace SocialMediaAPI.BLL.Services
             return await postRepository.AddPost(post);
         }
 
+        public async Task<List<ReturnPostDto>> GetAllPosts(Guid userId)
+        {
+            var posts = await postRepository.GetAllPosts(userId);
+
+            if (posts == null || !posts.Any())
+            {
+                throw new Exception("This user has no posts");
+            }
+
+            var returnPosts = new List<ReturnPostDto>();
+
+            foreach (var post in posts)
+            {
+                var returnComments = new List<ReturnCommentDto>();
+
+                foreach (var comment in post.Comments)
+                {
+                    var user = await userRepository.GetUserById(comment.Author);
+
+                    if (user != null)
+                    {
+                        var returnComment = new ReturnCommentDto
+                        {
+                            Author = comment.Author,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            Email = user.Email,
+                            Content = comment.Content,
+                            CreatedAt = comment.CreatedAt
+                        };
+
+                        returnComments.Add(returnComment);
+                    }
+                }
+
+                var author = await userRepository.GetUserById(post.Author);
+
+                if (author != null)
+                {
+                    var returnPost = new ReturnPostDto
+                    {
+                        Author = post.Author,
+                        FirstName = author.FirstName,
+                        LastName = author.LastName,
+                        Email = author.Email,
+                        Content = post.Content,
+                        CreatedAt = post.CreatedAt,
+                        Comments = returnComments,
+                        Likes = post.Likes.Count
+                    };
+
+                    returnPosts.Add(returnPost);
+                }
+            }
+
+            return returnPosts;
+        }
+
         public async Task<ReturnPostDto> GetPostById(Guid postId)
         {
             var post = await postRepository.GetPostById(postId);

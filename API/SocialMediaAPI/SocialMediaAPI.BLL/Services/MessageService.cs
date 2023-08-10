@@ -43,6 +43,16 @@ namespace SocialMediaAPI.BLL.Services
             
         }
 
+        public async Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId)
+        {
+            await followService.VerifyExistingFriendship(FollowerId, FollowingId);
+
+            var messages = await messageRepository.GetAllMessagesBetweenFriends(FollowerId, FollowingId);
+
+            return messages;
+
+        }
+
         private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)
         {
             if (authUserId != userId)

@@ -10,6 +10,7 @@ namespace SocialMediaAPI.DAL.Interface
     public interface IPostRepository
     {
         Task<Post> AddPost(Post post);
+        Task<List<Post>> GetAllPosts(Guid userId);
         Task DeletePost(Post post);
         Task<Post> GetPostById(Guid postId);
         Task<List<Post>> GetPostsByUserId(Guid userId);
