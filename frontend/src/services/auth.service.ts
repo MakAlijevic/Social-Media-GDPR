@@ -62,7 +62,7 @@ export class AuthService {
   loginUser(loginUserDto: LoginUserDto): boolean {
     this.http.post("https://localhost:7243/api/Auth/login", loginUserDto, { responseType: 'text' }).subscribe({
       next: (result) => {
-        localStorage.setItem("token", result)
+        localStorage.setItem("userToken", result)
         alert("Successfully logged in!");
         this.router.navigate(['/home']);
         this.showLoginForm.next(false);
@@ -75,5 +75,45 @@ export class AuthService {
       }
     });
     return false;
+  }
+
+  logoutUser() {
+    localStorage.removeItem("userToken");
+    this.showLoginForm.next(true);
+    this.router.navigate(['']);
+  }
+
+  validateUserLoggedIn() {
+    var token = localStorage.getItem("userToken");
+    if (token != null) {
+      var tokenExpired = this.isTokenExpired(token);
+      if (tokenExpired == false && this.router.url == "/") {
+        this.showRegisterForm.next(false);
+        this.showLoginForm.next(false);
+        this.router.navigate(['/home']);
+      }
+      else if (tokenExpired == true) {
+        alert("Your token has expired please login again");
+        this.logoutUser();
+      }
+    } else {
+      this.showRegisterForm.next(true);
+      this.showLoginForm.next(false);
+      this.router.navigate(['']);
+    }
+  }
+
+  isTokenExpired(token: string): boolean {
+    try {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      if (decodedToken.exp) {
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+        return decodedToken.exp < currentTimestamp;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
 
 @Component({
@@ -15,12 +15,22 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.authService.validateUserLoggedIn();
     this.authService.showLoginForm.subscribe(result => {
       this.showLoginForm = result;
     })
     this.authService.showRegisterForm.subscribe(result => {
       this.showRegisterForm = result;
     })
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.authService.validateUserLoggedIn();
+      }
+    });
+  }
+
+  logoutUser() {
+    this.authService.logoutUser();
   }
 
 }
