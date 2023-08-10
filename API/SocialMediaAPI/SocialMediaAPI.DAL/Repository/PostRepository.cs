@@ -41,5 +41,14 @@ namespace SocialMediaAPI.DAL.Repository
 
             return existingPost;
         }
+
+        public async Task<List<Post>> GetPostsByUserId(Guid userId)
+        {
+            var posts = await context.Posts
+                .Where(post => post.Author == userId)
+                .ToListAsync();
+
+            return posts;
+        }
     }
 }

@@ -44,6 +44,19 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
+        [HttpGet("GetUserPosts")]
+        public async Task<ActionResult<Post>> GetPostsByUserId(Guid userId)
+        {
+            try
+            {
+                return Ok(await postService.GetPostsByUserId(userId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete, Authorize]
         public async Task<ActionResult<Post>> DeletePost(DeletePostDto deletePostDto)
         {

@@ -12,5 +12,6 @@ namespace SocialMediaAPI.DAL.Interface
         Task<Post> AddPost(Post post);
         Task DeletePost(Post post);
         Task<Post> GetPostById(Guid postId);
+        Task<List<Post>> GetPostsByUserId(Guid userId);
     }
 }
