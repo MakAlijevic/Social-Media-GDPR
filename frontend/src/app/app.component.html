@@ -1,5 +1,5 @@
-<div class="hidden h-screen">
-    <nav class="bg-maincolor border-textcolor dark:bg-maincolor">
+<div *ngIf="showLoginForm === false && showRegisterForm === false" class="h-screen">
+    <nav class="fixed w-screen bg-maincolor border-textcolor dark:bg-maincolor">
         <div class="flex flex-wrap items-center justify-between p-4">
             <a href="/home" class="flex items-center">
                 <img src="../assets/logo.png" class="h-8 mr-2" alt="Algida Logo" />
@@ -63,76 +63,105 @@
 
     <div class="md:ml-64 md:mr-64">
         <aside id="default-sidebar"
-            class="absolute mt-0 md:mt-17 left-0 z-40 w-64 h-full transition-transform -translate-x-full md:translate-x-0"
+            class="fixed mt-0 md:mt-17 left-0 z-40 w-64 h-full transition-transform -translate-x-full md:translate-x-0"
             aria-label="Sidebar">
             <div class="h-full px-3 py-4 overflow-y-auto bg-maincolor dark:bg-maincolor">
                 <ul class="space-y-2 font-medium">
                     <li>
-                        <a routerLink="/profile"
-                            class="flex items-center p-2 text-textcolor rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
-                            <svg aria-hidden="true"
-                                class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-textcolor dark:group-hover:text-white"
-                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                    clip-rule="evenodd"></path>
+                        <a routerLink="/home"
+                            class="flex items-center p-2 text-textcolor rounded-lg dark:text-textcolor dark:hover:bg-lightcolor">
+                            <svg *ngIf="router.url !== '/home'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-textcolor dark:group-hover:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                             </svg>
-                            <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
+                            <svg *ngIf="router.url === '/home'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-textcolor dark:group-hover:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                            <span [ngClass]="{'opacity-75' : router.url !== '/home'}"
+                                class="ml-3 text-textcolor">Home</span>
                         </a>
                     </li>
                     <li>
-                        <a routerLink="/home"
-                            class="flex items-center p-2 text-textcolor rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
-                            <svg aria-hidden="true"
-                                class="w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-textcolor dark:group-hover:text-white"
-                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                        <a routerLink="/profile"
+                            class="flex items-center p-2 text-textcolor rounded-lg dark:text-textcolor dark:hover:bg-lightcolor">
+                            <svg *ngIf="router.url !== '/profile'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-textcolor dark:group-hover:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                             </svg>
-                            <span class="ml-3">Home</span>
+                            <svg *ngIf="router.url === '/profile'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-textcolor dark:group-hover:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                            </svg>
+
+                            <span [ngClass]="{'opacity-75' : router.url !== '/profile'}"
+                                class="flex-1 ml-3 whitespace-nowrap text-textcolor">Profile</span>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/friends"
                             class="flex items-center p-2 text-textcolor rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor"
+                            <svg *ngIf="router.url !== '/friends'" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                 class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-textcolor dark:text-gray-400 dark:group-hover:text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
                             </svg>
-                            <span class="flex-1 ml-3 whitespace-nowrap">Friends</span>
+                            <svg *ngIf="router.url === '/friends'" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-textcolor dark:text-gray-400 dark:group-hover:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                            </svg>
+                            <span [ngClass]="{'opacity-75' : router.url !== '/friends'}"
+                                class="flex-1 ml-3 whitespace-nowrap text-textcolor">Friends</span>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/messages"
                             class="flex items-center p-2 text-textcolor rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor"
+                            <svg *ngIf="router.url !== '/messages'" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                 class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-textcolor dark:text-gray-400 dark:group-hover:text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                             </svg>
-
-                            <span class="flex-1 ml-3 whitespace-nowrap">Messages</span>
+                            <svg *ngIf="router.url === '/messages'" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 group-hover:text-textcolor dark:text-gray-400 dark:group-hover:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                            </svg>
+                            <span [ngClass]="{'opacity-75' : router.url !== '/messages'}"
+                                class="flex-1 ml-3 whitespace-nowrap text-textcolor">Messages</span>
                         </a>
                     </li>
+                    <hr>
                     <li>
                         <a
                             class="flex items-center p-2 text-textcolor rounded-lg dark:text-textcolor  dark:hover:bg-lightcolor">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor"
+                                stroke="red"
                                 class="flex-shrink-0 w-6 h-6 dark:text-textcolor transition duration-75 dark:text-gray-400 group-hover:text-textcolor dark:group-hover:text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                             </svg>
-                            <span class="flex-1 ml-3 whitespace-nowrap">Log out</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap text-textcolor">Log out</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </aside>
         <div class="flex hidden md:block">
-            <div class="absolute bg-maincolor z-41 dark:bg-maincolor right-0 w-64 h-screen overflow-y-scroll">
+            <div class="fixed mt-17 bg-maincolor z-41 dark:bg-maincolor right-0 w-64 h-screen overflow-y-scroll">
                 <p class="ml-5 mt-2 font-medium text-xl text-textcolor">Friends</p>
                 <ul>
                     <app-friends></app-friends>
@@ -182,132 +211,6 @@
     </div>
 </div>
 
+<app-login *ngIf="showLoginForm === true && showRegisterForm === false"></app-login>
 
-<div id="register" class="bg-maincolor h-screen" *ngIf="showRegisterForm">
-    <!-- component -->
-    <div class="h-screen md:flex">
-        <div
-            class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-backgroundcolor to-buttoncolor i justify-around items-center hidden">
-            <div>
-                <h1 class="text-white font-bold text-4xl font-sans">Algida</h1>
-                <p class="text-white mt-1">Social Network with GDPR proctection rules</p>
-            </div>
-            <div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8">
-            </div>
-            <div class="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8">
-            </div>
-            <div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-            <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-        </div>
-        <div class="flex md:w-1/2 justify-center py-10 items-center bg-maincolor">
-            <form class="bg-maincolor">
-                <h1 class="text-textcolor font-bold text-2xl mb-5">Welcome!</h1>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-buttoncolor" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <input class="pl-2 bg-maincolor outline-none border-none" type="text" name="firstname"
-                        id="firstname" placeholder="First Name" />
-                </div>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-buttoncolor" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <input class="pl-2 bg-maincolor outline-none border-none" type="text" name="lastname" id="lastname"
-                        placeholder="Last Name" />
-                </div>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-buttoncolor" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                    </svg>
-                    <input class="pl-2 bg-maincolor outline-none border-none" type="email" name="email" id="email"
-                        placeholder="Email Address" />
-                </div>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-buttoncolor" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <input class="pl-2 bg-maincolor outline-none border-none" type="text" name="password" id="password"
-                        placeholder="Password" />
-                </div>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-buttoncolor" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <input class="pl-2 bg-maincolor outline-none border-none" type="text" name="confirmpassword"
-                        id="confirmpassword" placeholder="Confirm Password" />
-                </div>
-                <button type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal"
-                    class="block w-full bg-buttoncolor mt-4 py-2 rounded-2xl text-textcolor font-semibold mb-2">Register</button>
-                <span class="text-sm ml-2">Already have an account? <a class=" hover:text-blue-500 cursor-pointer"
-                        (click)="showRegisterForm = false; showLoginForm = true;">
-                        Register
-                        here</a></span>
-                <app-gdpr-modal></app-gdpr-modal>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div id="login" class="bg-maincolor h-screen" *ngIf="showLoginForm">
-    <!-- component -->
-    <div class="h-screen md:flex">
-        <div
-            class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-backgroundcolor to-buttoncolor i justify-around items-center hidden">
-            <div>
-                <h1 class="text-white font-bold text-4xl font-sans">Algida</h1>
-                <p class="text-white mt-1">Social Network with GDPR proctection rules</p>
-            </div>
-            <div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8">
-            </div>
-            <div class="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8">
-            </div>
-            <div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-            <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-        </div>
-        <div class="flex md:w-1/2 justify-center py-10 items-center bg-maincolor">
-            <form class="bg-maincolor">
-                <h1 class="text-textcolor font-bold text-2xl mb-1">Hello!</h1>
-                <p class="text-sm font-normal text-textcolor mb-7">Welcome Back</p>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-buttoncolor" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                    </svg>
-                    <input class="pl-2 bg-maincolor outline-none border-none" type="email" name="email" id="email"
-                        placeholder="Email Address" />
-                </div>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-buttoncolor" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <input class="pl-2 bg-maincolor outline-none border-none" type="text" name="password" id="password"
-                        placeholder="Password" />
-                </div>
-                <button type="submit"
-                    class="block w-full bg-buttoncolor mt-4 py-2 rounded-2xl text-textcolor font-semibold mb-2">Login</button>
-                <span class="text-sm ml-2">Don't have an account? <a class=" hover:text-blue-500 cursor-pointer"
-                        (click)="showLoginForm = false; showRegisterForm = true;">
-                        Register
-                        here</a></span>
-            </form>
-        </div>
-    </div>
-</div>
+<app-register *ngIf="showLoginForm === false && showRegisterForm === true"></app-register>
