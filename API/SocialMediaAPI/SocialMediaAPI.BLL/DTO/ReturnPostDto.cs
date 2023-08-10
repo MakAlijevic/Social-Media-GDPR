@@ -16,6 +16,6 @@ namespace SocialMediaAPI.BLL.DTO
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public ICollection<ReturnCommentDto> Comments { get; set; } = new List<ReturnCommentDto>();
-        public ICollection<Like> Likes { get; set; } = new List<Like>();
+        public int Likes { get; set; } = 0;
     }
 }

@@ -10,5 +10,7 @@ namespace SocialMediaAPI.DAL.Interface
     public interface ILikeRepository
     {
         Task<Like> AddLike(Post post, Like like);
+        Task RemoveLike(Post post, Like like);
+        Task<Like> GetLikeByPostIdAndUserId(Guid postId, Guid userId);
     }
 }

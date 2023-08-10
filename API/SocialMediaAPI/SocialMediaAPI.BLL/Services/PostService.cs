@@ -79,7 +79,8 @@ namespace SocialMediaAPI.BLL.Services
                 Email = user.Email,
                 Content = post.Content,
                 CreatedAt = post.CreatedAt,
-                Comments = returnComments
+                Comments = returnComments,
+                Likes = post.Likes.Count
             };
 
             return returnPost;

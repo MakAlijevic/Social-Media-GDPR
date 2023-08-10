@@ -84,6 +84,8 @@ namespace SocialMediaAPI
             builder.Services.AddTransient<ICommentRepository, CommentRepository>();
             builder.Services.AddTransient<IMessageService, MessageService>();
             builder.Services.AddTransient<IMessageRepository, MessageRepository>();
+            builder.Services.AddTransient<ILikeService, LikeService>();
+            builder.Services.AddTransient<ILikeRepository, LikeRepository>();
 
             var app = builder.Build();
 
