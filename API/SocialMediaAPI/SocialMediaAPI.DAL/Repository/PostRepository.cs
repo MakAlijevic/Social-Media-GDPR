@@ -25,6 +25,21 @@ namespace SocialMediaAPI.DAL.Repository
             return await Task.FromResult(post);
         }
 
+        public async Task<List<Post>> GetAllPosts(Guid userId)
+        {
+            var followerIds = await context.Follows
+                .Where(follower => follower.FollowerId == userId)
+                .Select(follower => follower.FollowingId)
+                .ToListAsync();
+
+            var posts = await context.Posts
+                .Where(post => followerIds.Contains(post.Author))
+                .OrderByDescending(post => post.CreatedAt)
+                .ToListAsync();
+         
+            return posts;
+        }
+
         public async Task DeletePost(Post post)
         {
             context.Remove(post);

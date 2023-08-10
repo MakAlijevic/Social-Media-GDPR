@@ -14,5 +14,6 @@ namespace SocialMediaAPI.BLL.Interface
         Task<ReturnPostDto> GetPostById(Guid postId);
         Task<string> DeletePost(Guid authUserId, DeletePostDto deletePostDto);
         Task<List<ReturnPostDto>> GetPostsByUserId(Guid userId);
+        Task<List<ReturnPostDto>> GetAllPosts(Guid userId);
     }
 }

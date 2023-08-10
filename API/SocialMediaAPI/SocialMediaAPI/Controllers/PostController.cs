@@ -31,7 +31,29 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
+        public async Task<ActionResult<Post>> GetAllPosts(Guid userId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await postService.GetAllPosts(userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetPostByUserId"), Authorize]
         public async Task<ActionResult<Post>> GetPostById(Guid postId)
         {
             try
@@ -44,7 +66,7 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
-        [HttpGet("GetUserPosts")]
+        [HttpGet("GetUserPosts"), Authorize]
         public async Task<ActionResult<Post>> GetPostsByUserId(Guid userId)
         {
             try
