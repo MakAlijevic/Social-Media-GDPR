@@ -10,6 +10,7 @@ import { User } from 'src/models/User.model';
 export class FollowService {
 
   public allFollows = new BehaviorSubject<User[]>([]);
+  public onlineFollows = new BehaviorSubject<User[]>([]);
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -26,6 +27,23 @@ export class FollowService {
       },
       error: (result) => {
         alert("Error while getting all following users : " + result.error);
+      }
+    })
+  }
+
+  getOnlineFollows() {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    }
+    this.http.get<User[]>("https://localhost:7243/api/Follow/onlineFollows?userId=" + userId, requestOptions).subscribe({
+      next: (result) => {
+        this.onlineFollows.next(result);
+      },
+      error: (result) => {
+        console.log("Error while getting online following users : " + result.error);
       }
     })
   }

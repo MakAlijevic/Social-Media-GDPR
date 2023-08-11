@@ -1,11 +1,11 @@
-<li class="m-3 sm:py-2">
-    <div class="flex items-center space-x-4">
+<li class="m-3 sm:py-2 sm:px-3 rounded-3xl dark:hover:bg-lightcolor hover:cursor-pointer">
+    <div class=" flex items-center space-x-4">
         <div class="flex-shrink-0">
             <img class="w-8 h-8 rounded-full" src="https://source.unsplash.com/75x75/?portrait" alt="Neil image">
         </div>
         <div class="flex-1 min-w-0">
             <p class="text-sm font-medium text-gray-900 truncate dark:text-textcolor">
-                Friend Name
+                {{userData.firstName + " " + userData.lastName}}
             </p>
         </div>
         <div class="w-2 h-2 rounded-full bg-green-500">

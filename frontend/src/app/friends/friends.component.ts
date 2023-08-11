@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from 'src/models/User.model';
 
 @Component({
   selector: 'app-friends',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent {
+
+  @Input() userData!: User;
 
 }

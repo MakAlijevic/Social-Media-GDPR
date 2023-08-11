@@ -9,7 +9,7 @@ import { FollowService } from 'src/services/follow.service';
 })
 export class FriendsPageComponent implements OnInit {
 
-  public allFriends!: User[];
+  allFriends!: User[];
 
 
   constructor(private followService: FollowService) {
