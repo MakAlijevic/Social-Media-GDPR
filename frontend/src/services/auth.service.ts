@@ -116,4 +116,11 @@ export class AuthService {
       return false;
     }
   }
+
+  getUserTokenAndDecode() {
+    var token = localStorage.getItem("userToken");
+    if (token !== null && token !== undefined) {
+      return JSON.parse(atob(token.split('.')[1]));
+    }
+  }
 }

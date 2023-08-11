@@ -19,12 +19,7 @@
             </div>
             <hr class="mt-5 mx-5">
             <div>
-                <app-friend-profile></app-friend-profile>
-                <app-friend-profile></app-friend-profile>
-                <app-friend-profile></app-friend-profile>
-                <app-friend-profile></app-friend-profile>
-                <app-friend-profile></app-friend-profile>
-                <app-friend-profile></app-friend-profile>
+                <app-friend-profile *ngFor="let friend of allFriends" [userData]="friend"></app-friend-profile>
             </div>
         </div>
         <div class="col-span-12">
