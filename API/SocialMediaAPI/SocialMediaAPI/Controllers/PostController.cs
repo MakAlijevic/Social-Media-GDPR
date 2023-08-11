@@ -36,7 +36,7 @@ namespace SocialMediaAPI.Controllers
         {
             try
             {
-                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                var userIdClaim = User.FindFirst("serialNumber");
                 if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
                 {
                     return BadRequest("Invalid authentication token.");
@@ -71,7 +71,16 @@ namespace SocialMediaAPI.Controllers
         {
             try
             {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
                 return Ok(await postService.GetPostsByUserId(userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
             }
             catch (Exception ex)
             {
@@ -84,7 +93,7 @@ namespace SocialMediaAPI.Controllers
         {
             try
             {
-                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                var userIdClaim = User.FindFirst("serialNumber");
                 if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
                 {
                     return BadRequest("Invalid authentication token.");

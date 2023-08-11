@@ -23,7 +23,7 @@ namespace SocialMediaAPI.Controllers
         {
             try
             {
-                var userIdClaim = User.FindFirst(ClaimTypes.SerialNumber);
+                var userIdClaim = User.FindFirst("serialNumber");
                 if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
                 {
                     return BadRequest("Invalid authentication token.");
