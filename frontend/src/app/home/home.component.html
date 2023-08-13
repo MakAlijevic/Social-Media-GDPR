@@ -5,16 +5,17 @@
         </p>
         <hr class="mt-5 mx-5">
         <div class="editor mx-auto w-10/12 flex flex-col text-textcolor p-4 max-w-2xl">
-            <textarea class="description bg-lightcolor sec p-3 h-32 border outline-none rounded-2xl" spellcheck="false"
-                placeholder="Describe everything about this post here"></textarea>
+            <textarea class="description bg-lightcolor sec p-3 h-32 border outline-none rounded-2xl" spellcheck="true"
+                placeholder="Describe everything about this post here" id="createPostContent"></textarea>
             <!-- buttons -->
             <div class="buttons flex mt-2">
-                <div
+                <button
                     class="btn border p-1 px-4 font-semibold cursor-pointer text-textcolor ml-auto bg-lightcolor rounded-2xl">
-                    Cancel</div>
-                <div
-                    class="btn border border-textcolor p-1 px-4 font-semibold cursor-pointer text-textcolor ml-2 bg-buttoncolor rounded-2xl">
-                    Post</div>
+                    Cancel</button>
+                <button
+                    class="btn border border-textcolor p-1 px-4 font-semibold cursor-pointer text-textcolor ml-2 bg-buttoncolor rounded-2xl"
+                    (click)="addNewPost()">
+                    Post</button>
             </div>
         </div>
     </div>
