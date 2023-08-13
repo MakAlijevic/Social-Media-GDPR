@@ -188,5 +188,25 @@ namespace SocialMediaAPI.BLL.Services
             return false;
         }
 
+        public async Task<List<ReturnUserDto>> SearchFollowedUsersByName(Guid userId, string searchName)
+        {
+            var users = await followRepository.SearchFollowedUsersByName(userId, searchName);
+            var returnUserDtoList = new List<ReturnUserDto>();
+
+            foreach (var user in users)
+            {
+                var returnUserDto = new ReturnUserDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    IsOnline = user.IsOnline,
+                    CreatedAt = user.CreatedAt
+                };
+
+                returnUserDtoList.Add(returnUserDto);
+            }
+            return returnUserDtoList;
+        }
     }
 }

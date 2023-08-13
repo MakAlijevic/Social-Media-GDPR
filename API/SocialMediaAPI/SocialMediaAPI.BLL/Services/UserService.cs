@@ -115,5 +115,26 @@ namespace SocialMediaAPI.BLL.Services
             await userRepository.SetOnlineState(userId, false);
             return;
         }
+
+        public async Task<List<ReturnUserDto>> SearchUsersByName(string searchName)
+        {
+            var users = await userRepository.SearchUsersByName(searchName);
+            var returnUserDtoList = new List<ReturnUserDto>();
+
+            foreach (var user in users)
+            {
+                var returnUserDto = new ReturnUserDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    IsOnline = user.IsOnline,
+                    CreatedAt = user.CreatedAt
+                };
+
+                returnUserDtoList.Add(returnUserDto);
+            }
+            return returnUserDtoList;
+        }
     }
 }

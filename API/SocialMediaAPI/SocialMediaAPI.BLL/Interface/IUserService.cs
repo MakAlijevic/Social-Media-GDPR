@@ -16,5 +16,6 @@ namespace SocialMediaAPI.BLL.Interface
         Task<ReturnUserDto> GetLoggedInUser(Guid id);
         Task SetOnline(Guid userId);
         Task SetOffline(Guid authUserId, Guid userId);
+        Task<List<ReturnUserDto>> SearchUsersByName(string searchName);
     }
 }

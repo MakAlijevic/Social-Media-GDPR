@@ -15,6 +15,7 @@ namespace SocialMediaAPI.BLL.Interface
         Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId);
         Task<List<ReturnFollowDto>> GetOnlineFollows(Guid authUserId, Guid userId);
         Task<bool> VerifyExistingFriendship(Guid userId1, Guid userId2);
+        Task<List<ReturnUserDto>> SearchFollowedUsersByName(Guid userId, string searchName);
 
     }
 }

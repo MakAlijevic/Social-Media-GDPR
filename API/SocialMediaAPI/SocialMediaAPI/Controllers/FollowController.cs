@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialMediaAPI.BLL.DTO;
 using SocialMediaAPI.BLL.Interface;
+using SocialMediaAPI.BLL.Services;
 using SocialMediaAPI.DAL.Models;
 using System.Security.Claims;
 
@@ -96,6 +97,29 @@ namespace SocialMediaAPI.Controllers
                     return BadRequest("Invalid authentication token.");
                 }
                 return Ok(await followService.GetOnlineFollows(authUserId, userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpGet("SearchFollowedUsers"), Authorize]
+        public async Task<ActionResult<List<ReturnUserDto>>> SearchFollowedUserByName(string searchName)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await followService.SearchFollowedUsersByName(authUserId, searchName));
             }
             catch (UnauthorizedAccessException ex)
             {

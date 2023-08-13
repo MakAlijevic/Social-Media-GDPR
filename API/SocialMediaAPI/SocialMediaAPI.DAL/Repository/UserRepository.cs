@@ -45,5 +45,17 @@ namespace SocialMediaAPI.DAL.Repository
             await context.SaveChangesAsync();
             return;
         }
+
+        public async Task<List<User>> SearchUsersByName(string searchName)
+        {
+            var users = await context.Users
+                .Where(
+                user => user.FirstName.Contains(searchName) || 
+                user.LastName.Contains(searchName) ||
+                (user.FirstName + " " + user.LastName).Contains(searchName))
+                .ToListAsync();
+
+            return users;
+        }
     }
 }

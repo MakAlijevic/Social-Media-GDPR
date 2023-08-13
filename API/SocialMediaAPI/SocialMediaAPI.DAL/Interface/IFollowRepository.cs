@@ -13,5 +13,6 @@ namespace SocialMediaAPI.DAL.Interface
         Task<Follow> CheckExistingFollow(Guid followerId, Guid followingId);
         Task Unfollow(Follow follow);
         Task<List<Follow>> GetAllFollows(Guid userId);
+        Task<List<User>> SearchFollowedUsersByName(Guid userId, string searchName);
     }
 }
