@@ -124,7 +124,7 @@ namespace SocialMediaAPI.BLL.Services
             {
                 var user = await userRepository.GetUserById(follow.FollowingId);
 
-                if (user != null && user.IsOnline == true)
+                if (user != null && user.IsOnline == true && user.Id != userId)
                 {
                     var returnFollow = new ReturnFollowDto
                     {
@@ -154,6 +154,27 @@ namespace SocialMediaAPI.BLL.Services
             }
 
             return true;
+        }
+
+        public async Task<List<ReturnUserDto>> SearchFollowedUsersByName(Guid userId, string searchName)
+        {
+            var users = await followRepository.SearchFollowedUsersByName(userId, searchName);
+            var returnUserDtoList = new List<ReturnUserDto>();
+
+            foreach (var user in users)
+            {
+                var returnUserDto = new ReturnUserDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    IsOnline = user.IsOnline,
+                    CreatedAt = user.CreatedAt
+                };
+
+                returnUserDtoList.Add(returnUserDto);
+            }
+            return returnUserDtoList;
         }
 
         private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)
@@ -188,25 +209,5 @@ namespace SocialMediaAPI.BLL.Services
             return false;
         }
 
-        public async Task<List<ReturnUserDto>> SearchFollowedUsersByName(Guid userId, string searchName)
-        {
-            var users = await followRepository.SearchFollowedUsersByName(userId, searchName);
-            var returnUserDtoList = new List<ReturnUserDto>();
-
-            foreach (var user in users)
-            {
-                var returnUserDto = new ReturnUserDto
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    IsOnline = user.IsOnline,
-                    CreatedAt = user.CreatedAt
-                };
-
-                returnUserDtoList.Add(returnUserDto);
-            }
-            return returnUserDtoList;
-        }
     }
 }
