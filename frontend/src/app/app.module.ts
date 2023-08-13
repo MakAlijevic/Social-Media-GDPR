@@ -12,7 +12,6 @@ import { PostComponent } from './home/post/post.component';
 import { FriendsPageComponent } from './friends-page/friends-page.component';
 import { FriendProfileComponent } from './friends-page/friend-profile/friend-profile.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ProfilePostsComponent } from './profile/profile-posts/profile-posts.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessagesFriendsComponent } from './messages/messages-friends/messages-friends.component';
 import { SearchComponent } from './search/search.component';
@@ -31,7 +30,6 @@ import { CommentComponent } from './home/comment/comment.component';
     FriendsPageComponent,
     FriendProfileComponent,
     ProfileComponent,
-    ProfilePostsComponent,
     MessagesComponent,
     MessagesFriendsComponent,
     SearchComponent,

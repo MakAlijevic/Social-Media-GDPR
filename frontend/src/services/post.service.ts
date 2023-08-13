@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class PostService {
 
   public dashboardPosts = new BehaviorSubject<Post[]>([]);
+  public userProfilePosts = new BehaviorSubject<Post[]>([]);
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -53,6 +54,23 @@ export class PostService {
     })
   }
 
+  getUserProfilePosts() {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+
+    this.http.get<Post[]>("https://localhost:7243/api/Post/GetProfilePostsByUserId?userId=" + userId, requestOptions).subscribe({
+      next: (result) => {
+        this.userProfilePosts.next(result);
+      },
+      error: (result) => {
+        alert("Error while loading profile posts : " + result.error);
+      }
+    })
+  }
+
   addCommentToPost(postId: string, content: string) {
     const userToken = this.authService.getUserTokenAndDecode();
     const userId = userToken.serialNumber;
@@ -69,11 +87,12 @@ export class PostService {
       next: () => {
         alert("Comment added successfully");
         this.getDashboardPosts();
+        this.getUserProfilePosts();
       },
       error: (result) => {
         alert("Error while adding your comment : " + result.error);
       }
-    })
+    });
   }
 
   resetCreatePostForm() {
