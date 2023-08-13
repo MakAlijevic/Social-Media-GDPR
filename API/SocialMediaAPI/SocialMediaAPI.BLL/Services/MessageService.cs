@@ -43,6 +43,7 @@ namespace SocialMediaAPI.BLL.Services
             
         }
 
+
         public async Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId)
         {
             await followService.VerifyExistingFriendship(FollowerId, FollowingId);
@@ -51,6 +52,48 @@ namespace SocialMediaAPI.BLL.Services
 
             return messages;
 
+        }
+
+        public async Task<List<ReturnUserDto>> GetAllFriendsForMessages(Guid authUserId, Guid userId)
+        {
+            CheckIsUserValidAgainstJWT(authUserId, userId);
+
+            var friendsForMessages = await messageRepository.GetAllFriendsForMessages(userId);
+
+            var friends = new List<ReturnUserDto>();
+
+            var chats = friendsForMessages
+                .GroupBy(x => x.SenderId == userId ? x.RecieverId : x.SenderId)
+                .Select(y => new ReturnMessageFriend
+                {
+                    UserId = y.Key,
+                    LatestMessage = y.Max(m => m.CreatedAt)
+                })
+                .OrderByDescending(chat => chat.LatestMessage)
+                .ToList();
+
+
+            foreach (var friend in chats)
+            {
+                var user = await userRepository.GetUserById(friend.UserId);
+
+                if (user != null && user.Id != userId)
+                {
+                    var returnUserDto = new ReturnUserDto
+                    {
+                        UserId = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        IsOnline = user.IsOnline,
+                        CreatedAt = user.CreatedAt
+                    };
+
+                    friends.Add(returnUserDto);
+                }
+            }
+
+            return friends;
         }
 
         private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)

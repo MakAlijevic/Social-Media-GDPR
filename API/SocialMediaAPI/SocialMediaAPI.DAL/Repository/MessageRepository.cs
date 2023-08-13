@@ -24,6 +24,7 @@ namespace SocialMediaAPI.DAL.Repository
             return await Task.FromResult(message);
         }
 
+
         public async Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId)
         {
             var messages = await context.Messages
@@ -34,6 +35,12 @@ namespace SocialMediaAPI.DAL.Repository
                 .ToListAsync();
 
             return messages;
+        }
+
+        public async Task<List<Message>> GetAllFriendsForMessages(Guid userId)
+        {
+            var messages = context.Messages.Where(x => x.SenderId == userId || x.RecieverId == userId).ToListAsync();
+            return await messages;
         }
     }
 }

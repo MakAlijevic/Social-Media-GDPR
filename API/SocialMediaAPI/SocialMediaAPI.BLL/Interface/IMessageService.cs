@@ -12,5 +12,6 @@ namespace SocialMediaAPI.BLL.Interface
     {
         Task<Message> AddMessage(Guid authUserId, AddMessageDto messageDto);
         Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId);
+        Task<List<ReturnUserDto>> GetAllFriendsForMessages(Guid authUserId, Guid userId);
     }
 }

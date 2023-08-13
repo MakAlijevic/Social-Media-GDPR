@@ -64,5 +64,28 @@ namespace SocialMediaAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("getAllFriendsForMessages"), Authorize]
+        public async Task<ActionResult<List<ReturnUserDto>>> GetAllFriendsForMessages(Guid userId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+
+                return Ok(await messageService.GetAllFriendsForMessages(authUserId, userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

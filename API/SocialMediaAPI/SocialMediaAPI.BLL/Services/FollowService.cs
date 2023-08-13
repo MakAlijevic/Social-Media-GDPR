@@ -165,6 +165,7 @@ namespace SocialMediaAPI.BLL.Services
             {
                 var returnUserDto = new ReturnUserDto
                 {
+                    UserId = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
