@@ -97,6 +97,28 @@ namespace SocialMediaAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpGet("GetAuthUser"), Authorize]
+        public async Task<ActionResult<User>> GetUserById(Guid userId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await userService.GetLoggedInUser(authUserId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         private string CreateToken(User user)
         {

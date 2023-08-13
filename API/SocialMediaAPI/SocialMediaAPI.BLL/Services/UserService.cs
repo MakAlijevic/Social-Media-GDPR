@@ -80,6 +80,26 @@ namespace SocialMediaAPI.BLL.Services
             return user;
         }
 
+        public async Task<ReturnUserDto> GetLoggedInUser(Guid id)
+        {
+            var user = await userRepository.GetUserById(id);
+            if (user == null)
+            {
+                throw new Exception("User doesn't exist");
+            }
+
+            var returnUserDto = new ReturnUserDto
+            {
+                FirstName = user.FirstName, 
+                LastName = user.LastName,
+                Email = user.Email,
+                IsOnline = user.IsOnline,
+                CreatedAt = user.CreatedAt
+            };
+
+            return returnUserDto;
+        }
+
         public async Task SetOnline(Guid userId)
         {
             await userRepository.SetOnlineState(userId, true);
