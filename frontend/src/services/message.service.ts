@@ -1,0 +1,32 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import { User } from 'src/models/User.model';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MessageService {
+
+  public messagesFriends = new BehaviorSubject<User[]>([]);
+
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  getMessagesFriendsList() {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+
+    this.http.get<User[]>("https://localhost:7243/api/Message/getAllFriendsForMessages?userId=" + userId, requestOptions).subscribe({
+      next: (result) => {
+        this.messagesFriends.next(result);
+      },
+      error: (result) => {
+        alert("Error while loading your friends list : " + result.error);
+      }
+    })
+  }
+}

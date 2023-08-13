@@ -7,18 +7,8 @@
         <div class="m-5 grid grid-cols-12">
             <div class="col-span-12 md:col-span-3 border rounded-3xl">
                 <ul style="max-height: 700px; overflow-y: scroll;" id="friends">
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
-                    <app-messages-friends></app-messages-friends>
+                    <app-messages-friends *ngFor="let friend of messagesFriends"
+                        [friend]="friend"></app-messages-friends>
                 </ul>
             </div>
             <div class="col-span-1 w-0.5 ml-5 h-full bg-gray-200"></div>
@@ -26,137 +16,7 @@
                 <div class="grid grid-rows-1">
                     <div class="row-start-1 mt-5 md:mt-0"
                         style="max-height: 650px; min-height: 650px; overflow-y: scroll;" id="scrollable-content">
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="col-start-13 mb-3 mr-3 message"
-                                style="overflow-wrap: break-word; direction: rtl; max-width: 500px;">
-                                <p class="bg-lightcolor px-4 py-3 rounded-3xl text-textcolor" style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="mb-3 message"
-                                style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
-                                <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor"
-                                    style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-                                    sodales
-                                    ex sed, imperdiet justo.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="col-start-13 mb-3 mr-3 message"
-                                style="overflow-wrap: break-word; direction: rtl; max-width: 500px;">
-                                <p class="bg-lightcolor px-4 py-3 rounded-3xl text-textcolor" style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="col-start-13 mb-3 mr-3 message"
-                                style="overflow-wrap: break-word; direction: rtl; max-width: 500px;">
-                                <p class="bg-lightcolor px-4 py-3 rounded-3xl text-textcolor" style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet
-                                </p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <div class="col-start-13 mb-3 mr-3 message"
-                                style="overflow-wrap: break-word; direction: rtl; max-width: 500px;">
-                                <p class="bg-lightcolor px-4 py-3 rounded-3xl text-textcolor" style="direction: ltr;">
-                                    Lorem ipsum dolor sit amet
-                                </p>
-                            </div>
-                        </div>
+                        <app-message-bubble></app-message-bubble>
                     </div>
                 </div>
                 <form>
