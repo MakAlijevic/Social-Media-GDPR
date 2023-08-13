@@ -44,11 +44,6 @@ namespace SocialMediaAPI.BLL.Services
         {
             var posts = await postRepository.GetAllPosts(userId);
 
-            if (posts == null || !posts.Any())
-            {
-                throw new Exception("This user has no posts");
-            }
-
             var returnPosts = new List<ReturnPostDto>();
 
             foreach (var post in posts)
@@ -103,10 +98,6 @@ namespace SocialMediaAPI.BLL.Services
             var post = await postRepository.GetPostById(postId);
             var user = await userRepository.GetUserById(post.Author);
 
-            if (post == null)
-            {
-                throw new Exception("Post doesn't exist");
-            }
             var returnComments = new List<ReturnCommentDto>();
 
             foreach (var comment in post.Comments)
@@ -147,11 +138,6 @@ namespace SocialMediaAPI.BLL.Services
         public async Task<List<ReturnPostDto>> GetPostsByUserId(Guid userId)
         {
             var posts = await postRepository.GetPostsByUserId(userId);
-
-            if (posts == null || !posts.Any())
-            {
-                throw new Exception("This user has no posts");
-            }
 
             var returnPosts = new List<ReturnPostDto>();
 
