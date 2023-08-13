@@ -6,6 +6,8 @@ using SocialMediaAPI.DAL.Models;
 
 namespace SocialMediaAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private IUserService userService;
