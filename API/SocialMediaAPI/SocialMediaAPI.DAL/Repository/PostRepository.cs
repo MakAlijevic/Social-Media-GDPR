@@ -34,14 +34,20 @@ namespace SocialMediaAPI.DAL.Repository
 
             var userPosts = await context.Posts
                 .Where(post => post.Author == userId)
+                .Include(post => post.Comments)
+                .Include(post => post.Likes)
                 .ToListAsync();
 
             var followersPosts = await context.Posts
                 .Where(post => followerIds.Contains(post.Author))
+                .Include(post => post.Comments)
+                .Include(post => post.Likes)
                 .OrderByDescending(post => post.CreatedAt)
                 .ToListAsync();
 
-            var allPosts = userPosts.Concat(followersPosts).OrderByDescending(post => post.CreatedAt);
+            var allPosts = userPosts
+                .Concat(followersPosts)
+                .OrderByDescending(post => post.CreatedAt);
 
             return allPosts.ToList();
         }
@@ -67,6 +73,8 @@ namespace SocialMediaAPI.DAL.Repository
         {
             var posts = await context.Posts
                 .Where(post => post.Author == userId)
+                .Include(post => post.Comments)
+                .Include(post => post.Likes)
                 .ToListAsync();
 
             return posts;

@@ -32,7 +32,7 @@ namespace SocialMediaAPI.Controllers
         }
 
         [HttpGet("GetDashboardPostsByUserId"), Authorize]
-        public async Task<ActionResult<Post>> GetAllPosts(Guid userId)
+        public async Task<ActionResult<List<ReturnPostDto>>> GetAllPosts(Guid userId)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace SocialMediaAPI.Controllers
         }
 
         [HttpGet("GetProfilePostsByUserId"), Authorize]
-        public async Task<ActionResult<Post>> GetPostsByUserId(Guid userId)
+        public async Task<ActionResult<List<ReturnPostDto>>> GetPostsByUserId(Guid userId)
         {
             try
             {
