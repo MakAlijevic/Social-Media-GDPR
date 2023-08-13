@@ -58,6 +58,7 @@ namespace SocialMediaAPI.BLL.Services
                     {
                         var returnComment = new ReturnCommentDto
                         {
+                            Id = comment.Id,
                             Author = comment.Author,
                             FirstName = user.FirstName,
                             LastName = user.LastName,
@@ -76,6 +77,7 @@ namespace SocialMediaAPI.BLL.Services
                 {
                     var returnPost = new ReturnPostDto
                     {
+                        Id = post.Id,   
                         Author = post.Author,
                         FirstName = author.FirstName,
                         LastName = author.LastName,
@@ -108,6 +110,7 @@ namespace SocialMediaAPI.BLL.Services
                 {
                     var returnComment = new ReturnCommentDto
                     {
+                        Id = comment.Id,
                         Author = comment.Author,
                         FirstName = author.FirstName,
                         LastName = author.LastName,
@@ -122,6 +125,7 @@ namespace SocialMediaAPI.BLL.Services
 
             var returnPost = new ReturnPostDto
             {
+                Id = post.Id,
                 Author = post.Author,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -153,6 +157,7 @@ namespace SocialMediaAPI.BLL.Services
                     {
                         var returnComment = new ReturnCommentDto
                         {
+                            Id = comment.Id,   
                             Author = comment.Author,
                             FirstName = user.FirstName,
                             LastName = user.LastName,
@@ -171,6 +176,7 @@ namespace SocialMediaAPI.BLL.Services
                 {
                     var returnPost = new ReturnPostDto
                     {
+                        Id = post.Id,
                         Author = post.Author,
                         FirstName = author.FirstName,
                         LastName = author.LastName,

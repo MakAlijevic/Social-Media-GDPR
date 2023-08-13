@@ -8,6 +8,7 @@ namespace SocialMediaAPI.BLL.DTO
 {
     public class ReturnCommentDto
     {
+        public Guid Id { get; set; }
         public Guid Author { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

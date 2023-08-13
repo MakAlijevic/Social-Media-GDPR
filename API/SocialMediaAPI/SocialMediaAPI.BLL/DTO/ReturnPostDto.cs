@@ -9,6 +9,7 @@ namespace SocialMediaAPI.BLL.DTO
 {
     public class ReturnPostDto
     {
+        public Guid Id { get; set; }
         public Guid Author { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
