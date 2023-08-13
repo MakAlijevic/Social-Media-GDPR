@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Post } from 'src/models/Post.model';
+import { PostService } from 'src/services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -7,6 +9,10 @@ import { Component } from '@angular/core';
 })
 export class PostComponent {
 
+  constructor(private postService: PostService) {
+  }
+
+  @Input() post!: Post
   comments = false;
 
   showComments() {
@@ -14,6 +20,13 @@ export class PostComponent {
       this.comments = true;
     } else {
       this.comments = false;
+    }
+  }
+
+  addCommentToPost() {
+    var comment = document.getElementById("createCommentForm-" + this.post.id) as HTMLInputElement;
+    if (comment.value !== null && comment.value !== "") {
+      this.postService.addCommentToPost(this.post.id, comment.value);
     }
   }
 

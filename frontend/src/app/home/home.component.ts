@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/models/Post.model';
 import { PostService } from 'src/services/post.service';
 
 @Component({
@@ -6,15 +7,25 @@ import { PostService } from 'src/services/post.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
+  dashboardPosts!: Post[];
 
   constructor(private postService: PostService) {
 
   }
+  ngOnInit(): void {
+    this.postService.getDashboardPosts();
+    this.postService.dashboardPosts.subscribe(result => {
+      this.dashboardPosts = result;
+    })
+  }
 
   addNewPost() {
     const postContent = document.getElementById("createPostContent") as HTMLInputElement;
-    this.postService.addNewPost(postContent.value);
+    if (postContent.value !== null && postContent.value !== "") {
+      this.postService.addNewPost(postContent.value);
+    }
   }
 
 }

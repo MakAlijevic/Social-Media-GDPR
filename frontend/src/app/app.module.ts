@@ -18,6 +18,7 @@ import { MessagesFriendsComponent } from './messages/messages-friends/messages-f
 import { SearchComponent } from './search/search.component';
 import { SearchProfileComponent } from './search/search-profile/search-profile.component';
 import { GdprModalComponent } from './gdpr-modal/gdpr-modal.component';
+import { CommentComponent } from './home/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { GdprModalComponent } from './gdpr-modal/gdpr-modal.component';
     SearchComponent,
     SearchProfileComponent,
     GdprModalComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,
