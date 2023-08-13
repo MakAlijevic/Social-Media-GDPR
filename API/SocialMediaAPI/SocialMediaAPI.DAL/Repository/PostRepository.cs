@@ -32,12 +32,18 @@ namespace SocialMediaAPI.DAL.Repository
                 .Select(follower => follower.FollowingId)
                 .ToListAsync();
 
-            var posts = await context.Posts
+            var userPosts = await context.Posts
+                .Where(post => post.Author == userId)
+                .ToListAsync();
+
+            var followersPosts = await context.Posts
                 .Where(post => followerIds.Contains(post.Author))
                 .OrderByDescending(post => post.CreatedAt)
                 .ToListAsync();
-         
-            return posts;
+
+            var allPosts = userPosts.Concat(followersPosts).OrderByDescending(post => post.CreatedAt);
+
+            return allPosts.ToList();
         }
 
         public async Task DeletePost(Post post)
