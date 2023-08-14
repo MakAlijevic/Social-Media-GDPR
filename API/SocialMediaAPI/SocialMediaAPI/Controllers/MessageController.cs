@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using SocialMediaAPI.BLL.DTO;
 using SocialMediaAPI.BLL.Interface;
 using SocialMediaAPI.BLL.Services;
 using SocialMediaAPI.DAL.Models;
+using SocialMediaAPI.HubConfig;
 using System.Security.Claims;
 
 namespace SocialMediaAPI.Controllers
@@ -14,9 +16,11 @@ namespace SocialMediaAPI.Controllers
     public class MessageController : ControllerBase
     {
         private IMessageService messageService;
-        public MessageController(IMessageService messageService)
+        private IHubContext<MessageHub> messageHub;
+        public MessageController(IMessageService messageService, IHubContext<MessageHub> messageHub)
         {
             this.messageService = messageService;
+            this.messageHub = messageHub;
         }
 
         [HttpPost, Authorize]
@@ -30,6 +34,7 @@ namespace SocialMediaAPI.Controllers
                     return BadRequest("Invalid authentication token.");
                 }
 
+                await messageHub.Clients.All.SendAsync("MessageAdded");
                 return Ok(await messageService.AddMessage(authUserId, message));
             }
             catch (UnauthorizedAccessException ex)

@@ -7,6 +7,7 @@ using SocialMediaAPI.BLL.Services;
 using SocialMediaAPI.DAL.Data;
 using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Repository;
+using SocialMediaAPI.HubConfig;
 using Swashbuckle.AspNetCore.Filters;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -87,6 +88,8 @@ namespace SocialMediaAPI
             builder.Services.AddTransient<ILikeService, LikeService>();
             builder.Services.AddTransient<ILikeRepository, LikeRepository>();
 
+            builder.Services.AddSignalR();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -105,6 +108,7 @@ namespace SocialMediaAPI
             app.UseAuthorization();
 
             app.MapControllers();
+            app.MapHub<MessageHub>("/message");
 
             app.Run();
         }
