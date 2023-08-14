@@ -7,8 +7,8 @@
         <div class="m-5 grid grid-cols-12">
             <div class="col-span-12 md:col-span-3 border rounded-3xl">
                 <ul style="max-height: 700px; overflow-y: scroll;" id="friends">
-                    <app-messages-friends *ngFor="let friend of messagesFriends"
-                        [friend]="friend"></app-messages-friends>
+                    <app-messages-friends *ngFor="let friend of messagesFriends" [friend]="friend"
+                        (click)="loadActiveMessages(friend.userId)"></app-messages-friends>
                 </ul>
             </div>
             <div class="col-span-1 w-0.5 ml-5 h-full bg-gray-200"></div>
@@ -16,7 +16,8 @@
                 <div class="grid grid-rows-1">
                     <div class="row-start-1 mt-5 md:mt-0"
                         style="max-height: 650px; min-height: 650px; overflow-y: scroll;" id="scrollable-content">
-                        <app-message-bubble></app-message-bubble>
+                        <app-message-bubble *ngFor="let message of activeMessages"
+                            [message]="message"></app-message-bubble>
                     </div>
                 </div>
                 <form>

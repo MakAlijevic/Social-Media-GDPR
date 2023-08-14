@@ -1,16 +1,14 @@
-<div class="grid grid-cols-12">
+<div class="grid grid-cols-12" *ngIf="message.senderId !== loggedUserId">
     <div class="mb-3 message" style="overflow-wrap: break-word; max-width: 500px; direction: ltr; width: max-content;">
         <p class="bg-backgroundcolor px-4 py-3 rounded-3xl text-textcolor" style="direction: ltr;">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue mollis,
-            sodales
-            ex sed, imperdiet justo.
+            {{message.content}}
         </p>
     </div>
 </div>
-<div class="grid grid-cols-12">
+<div class="grid grid-cols-12" *ngIf="message.senderId === loggedUserId">
     <div class="col-start-13 mb-3 mr-3 message" style="overflow-wrap: break-word; direction: rtl; max-width: 500px;">
         <p class="bg-lightcolor px-4 py-3 rounded-3xl text-textcolor" style="direction: ltr;">
-            Lorem ipsum dolor sit amet
+            {{message.content}}
         </p>
     </div>
 </div>
