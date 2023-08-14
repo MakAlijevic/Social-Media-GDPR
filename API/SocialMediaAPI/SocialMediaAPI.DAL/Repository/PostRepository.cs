@@ -25,31 +25,38 @@ namespace SocialMediaAPI.DAL.Repository
             return await Task.FromResult(post);
         }
 
-        public async Task<List<Post>> GetAllPosts(Guid userId)
+        public async Task<List<Post>> GetAllPosts(Guid userId, int pageNumber, int pageSize)
         {
             var followerIds = await context.Follows
-                .Where(follower => follower.FollowerId == userId)
-                .Select(follower => follower.FollowingId)
-                .ToListAsync();
+                 .Where(follower => follower.FollowerId == userId)
+                 .Select(follower => follower.FollowingId)
+                 .ToListAsync();
 
-            var userPosts = await context.Posts
+            var userPostsQuery = context.Posts
                 .Where(post => post.Author == userId)
                 .Include(post => post.Comments)
                 .Include(post => post.Likes)
-                .ToListAsync();
+                .OrderByDescending(post => post.CreatedAt);
 
-            var followersPosts = await context.Posts
+            var followersPostsQuery = context.Posts
                 .Where(post => followerIds.Contains(post.Author))
                 .Include(post => post.Comments)
                 .Include(post => post.Likes)
-                .OrderByDescending(post => post.CreatedAt)
-                .ToListAsync();
-
-            var allPosts = userPosts
-                .Concat(followersPosts)
                 .OrderByDescending(post => post.CreatedAt);
 
-            return allPosts.ToList();
+            var allPostsQuery = userPostsQuery
+                .Union(followersPostsQuery)         
+                .OrderByDescending(post => post.CreatedAt);
+
+            var totalCount = await allPostsQuery.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            var pagedPosts = await allPostsQuery
+                .Skip((pageNumber - 1) * pageSize)              
+                .Take(pageSize)                         
+                .ToListAsync();
+
+            return pagedPosts;
         }
 
         public async Task DeletePost(Post post)
@@ -75,6 +82,7 @@ namespace SocialMediaAPI.DAL.Repository
                 .Where(post => post.Author == userId)
                 .Include(post => post.Comments)
                 .Include(post => post.Likes)
+                .OrderByDescending(post => post.CreatedAt)
                 .ToListAsync();
 
             return posts;
