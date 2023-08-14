@@ -48,4 +48,34 @@ export class MessageService {
       }
     });
   }
+
+  addNewMessageToActiveChat(recieverId: string, content: string): any {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+    const requestBody = {
+      senderId: userId,
+      recieverId: recieverId,
+      content: content
+    }
+
+    this.http.post<Message>("https://localhost:7243/api/Message", requestBody, requestOptions).subscribe({
+      next: (result) => {
+        var currentActiveMessages = this.activeMessages.getValue();
+        currentActiveMessages.push(result);
+        this.activeMessages.next(currentActiveMessages);
+        this.resetSendMessageForm();
+      },
+      error: (result) => {
+        alert("Error while sending your message : " + result.error);
+      }
+    });
+  }
+
+  resetSendMessageForm() {
+    const messageContent = document.getElementById("sendMessageForm") as HTMLInputElement;
+    messageContent.value = "";
+  }
 }

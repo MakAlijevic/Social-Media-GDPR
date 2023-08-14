@@ -20,13 +20,14 @@
                             [message]="message"></app-message-bubble>
                     </div>
                 </div>
-                <form>
+                <div>
                     <label for="chat" class="sr-only">Your message</label>
                     <div class="flex items-center px-3 py-2 rounded-lg bg-backgroundcolor">
-                        <input id="chat"
+                        <input id="sendMessageForm"
                             class="block mx-4 p-2.5 w-full text-sm text-textcolor bg-lightcolor rounded-lg border border-gray-300"
-                            placeholder="Your message..." style="overflow-wrap: break-word;">
-                        <button type="submit"
+                            placeholder="Your message..." style="overflow-wrap: break-word;"
+                            (keyup.enter)="addMessageToActiveChat()">
+                        <button type="button" (click)="addMessageToActiveChat()"
                             class="inline-flex justify-center p-2 text-buttoncolor rounded-full cursor-pointer">
                             <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor" viewBox="0 0 18 20">
@@ -36,8 +37,7 @@
                             <span class="sr-only">Send message</span>
                         </button>
                     </div>
-                </form>
-
+                </div>
             </div>
 
         </div>
