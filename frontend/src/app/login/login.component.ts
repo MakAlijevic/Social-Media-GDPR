@@ -3,6 +3,7 @@ import { AppComponent } from '../app.component';
 import { FormBuilder } from '@angular/forms';
 import { LoginUserDto } from 'src/models/LoginUserDto.model';
 import { AuthService } from 'src/services/auth.service';
+import { FollowService } from 'src/services/follow.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
     password: ''
   })
 
-  constructor(private appComponent: AppComponent, private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private appComponent: AppComponent, private formBuilder: FormBuilder, private authService: AuthService, private followService: FollowService) {
 
   }
 
@@ -31,6 +32,9 @@ export class LoginComponent {
     if (status === true) {
       this.loginUserForm.reset();
     }
+    setTimeout(() => {
+      this.followService.getOnlineFollows();
+    }, 1000);
   }
 
 }
