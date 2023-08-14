@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SocialMediaAPI.BLL.DTO;
 using SocialMediaAPI.BLL.Interface;
 using SocialMediaAPI.DAL.Interface;
@@ -37,12 +38,19 @@ namespace SocialMediaAPI.BLL.Services
                 CreatedAt = DateTime.Now
             };
 
+            if (post.Content.IsNullOrEmpty())
+            {
+                throw new Exception("Post cannot be empty!");
+            }
+
             return await postRepository.AddPost(post);
         }
 
-        public async Task<List<ReturnPostDto>> GetAllPosts(Guid userId)
+        public async Task<List<ReturnPostDto>> GetAllPosts(Guid authUserId, Guid userId, int pageNumber, int pageSize)
         {
-            var posts = await postRepository.GetAllPosts(userId);
+            CheckIsUserValidAgainstJWT(authUserId, userId);
+
+            var posts = await postRepository.GetAllPosts(userId, pageNumber, pageSize);
 
             var returnPosts = new List<ReturnPostDto>();
 
@@ -139,8 +147,10 @@ namespace SocialMediaAPI.BLL.Services
             return returnPost;
         }
 
-        public async Task<List<ReturnPostDto>> GetPostsByUserId(Guid userId)
+        public async Task<List<ReturnPostDto>> GetPostsByUserId(Guid authUserId, Guid userId)
         {
+            CheckIsUserValidAgainstJWT(authUserId, userId);
+
             var posts = await postRepository.GetPostsByUserId(userId);
 
             var returnPosts = new List<ReturnPostDto>();

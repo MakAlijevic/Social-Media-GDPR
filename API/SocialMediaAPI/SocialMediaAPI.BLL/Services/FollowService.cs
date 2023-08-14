@@ -81,11 +81,11 @@ namespace SocialMediaAPI.BLL.Services
             return ("Successfully unfollowed");
         }
 
-        public async Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId)
+        public async Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId, int pageNumber, int pageSize)
         {
             CheckIsUserValidAgainstJWT(authUserId, userId);
 
-            var allFollows = await followRepository.GetAllFollows(userId);
+            var allFollows = await followRepository.GetAllFollows(userId, pageNumber, pageSize);
 
             var resultFollows = new List<ReturnFollowDto>();
 
@@ -116,7 +116,7 @@ namespace SocialMediaAPI.BLL.Services
         {
             CheckIsUserValidAgainstJWT(authUserId, userId);
 
-            var allFollows = await followRepository.GetAllFollows(userId);
+            var allFollows = await followRepository.GetAllFollowsWithoutPagination(userId);
 
             var onlineFollows = new List<ReturnFollowDto>();
 
