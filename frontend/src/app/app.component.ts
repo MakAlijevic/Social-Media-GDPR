@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { User } from 'src/models/User.model';
 import { AuthService } from 'src/services/auth.service';
 import { FollowService } from 'src/services/follow.service';
+import { SignalrService } from 'src/services/signalr.service';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,12 @@ export class AppComponent implements OnInit {
 
   onlineFollows!: User[];
 
-  constructor(public router: Router, private authService: AuthService, private followService: FollowService) {
+  constructor(public router: Router, private authService: AuthService, private followService: FollowService, public signalrService: SignalrService) {
 
   }
   ngOnInit(): void {
+    this.signalrService.startConnection();
+    this.signalrService.addMessageTransferListener();
     this.followService.getOnlineFollows();
     this.authService.validateUserLoggedIn();
     this.authService.showLoginForm.subscribe(result => {
