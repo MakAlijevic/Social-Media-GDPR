@@ -1,5 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using SocialMediaAPI.BLL.DTO;
+﻿using SocialMediaAPI.BLL.DTO;
 using SocialMediaAPI.BLL.Interface;
 using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Models;
@@ -41,11 +40,6 @@ namespace SocialMediaAPI.BLL.Services
                 Content = addCommentDto.Content,
                 CreatedAt = DateTime.Now
             };
-
-            if (comment.Content.IsNullOrEmpty())
-            {
-                throw new Exception("Comment cannot be empty!");
-            }
 
             return await commentRepository.AddComment(post, comment);
         }

@@ -65,7 +65,7 @@ namespace SocialMediaAPI.Controllers
         }
 
         [HttpGet("allFollows"), Authorize]
-        public async Task<ActionResult<List<ReturnFollowDto>>> GetAllFollows(Guid userId, int pageNumber, int pageSize)
+        public async Task<ActionResult<List<ReturnFollowDto>>> GetAllFollows(Guid userId)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace SocialMediaAPI.Controllers
                 {
                     return BadRequest("Invalid authentication token.");
                 }
-                return Ok(await followService.GetAllFollows(authUserId, userId, pageNumber, pageSize));
+                return Ok(await followService.GetAllFollows(authUserId, userId));
             }
             catch (UnauthorizedAccessException ex)
             {

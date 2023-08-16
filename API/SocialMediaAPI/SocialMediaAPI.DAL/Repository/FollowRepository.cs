@@ -38,29 +38,11 @@ namespace SocialMediaAPI.DAL.Repository
             await context.SaveChangesAsync();
             return;
         }
-
-        public async Task<List<Follow>> GetAllFollowsWithoutPagination(Guid userId)
+        
+        public async Task<List<Follow>> GetAllFollows(Guid userId)
         {
             var allFollows = await context.Follows.Where(x => x.FollowerId == userId).ToListAsync();
             return allFollows;
-        }
-
-        public async Task<List<Follow>> GetAllFollows(Guid userId, int pageNumber, int pageSize)
-        {
-            var followsQuery = context
-                .Follows
-                .Where(x => x.FollowerId == userId)
-                .OrderBy(follow => follow.Id); 
-
-            var totalCount = await followsQuery.CountAsync();
-            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-
-            var pagedFollows = await followsQuery
-                .Skip((pageNumber - 1) * pageSize)                  
-                .Take(pageSize)
-                .ToListAsync();
-
-            return pagedFollows;
         }
 
         public async Task<List<User>> SearchFollowedUsersByName(Guid userId, string searchName)

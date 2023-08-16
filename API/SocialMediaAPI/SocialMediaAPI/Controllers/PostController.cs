@@ -32,7 +32,7 @@ namespace SocialMediaAPI.Controllers
         }
 
         [HttpGet("GetDashboardPostsByUserId"), Authorize]
-        public async Task<ActionResult<List<ReturnPostDto>>> GetAllPosts(Guid userId, int pageNumber, int pageSize)
+        public async Task<ActionResult<List<ReturnPostDto>>> GetAllPosts(Guid userId)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace SocialMediaAPI.Controllers
                 {
                     return BadRequest("Invalid authentication token.");
                 }
-                return Ok(await postService.GetAllPosts(authUserId, userId, pageNumber, pageSize));
+                return Ok(await postService.GetAllPosts(userId));
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -76,7 +76,7 @@ namespace SocialMediaAPI.Controllers
                 {
                     return BadRequest("Invalid authentication token.");
                 }
-                return Ok(await postService.GetPostsByUserId(authUserId, userId));
+                return Ok(await postService.GetPostsByUserId(userId));
             }
             catch (UnauthorizedAccessException ex)
             {
