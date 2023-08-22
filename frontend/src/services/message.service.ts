@@ -50,6 +50,9 @@ export class MessageService {
   }
 
   addNewMessageToActiveChat(recieverId: string, content: string): any {
+    if (content === "") {
+      return;
+    }
     const userToken = this.authService.getUserTokenAndDecode();
     const userId = userToken.serialNumber;
     const requestOptions: Object = {

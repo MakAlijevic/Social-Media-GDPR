@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.signalrService.startConnection();
+    this.signalrService.onlineFollowingUpdateListener();
     this.signalrService.addMessageTransferListener();
     this.followService.getOnlineFollows();
     this.authService.validateUserLoggedIn();
