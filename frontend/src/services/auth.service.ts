@@ -78,9 +78,23 @@ export class AuthService {
   }
 
   logoutUser() {
-    localStorage.removeItem("userToken");
-    this.showLoginForm.next(true);
-    this.router.navigate(['']);
+    const userToken = this.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    console.log(userId);
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+    console.log(requestOptions);
+    this.http.post("https://localhost:7243/api/Auth/logout?userId=" + userId, null, requestOptions).subscribe({
+      next: (result) => {
+        localStorage.removeItem("userToken");
+        this.showLoginForm.next(true);
+        this.router.navigate(['']);
+      },
+      error: (result) => {
+        alert("Unsuccessfull logout : " + result.error);
+      }
+    });
   }
 
   validateUserLoggedIn() {
