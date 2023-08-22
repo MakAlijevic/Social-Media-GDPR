@@ -61,5 +61,11 @@ namespace SocialMediaAPI.DAL.Repository
 
             return users;
         }
+
+        public async Task<List<Follow>> GetAllFollowings(Guid userId)
+        {
+            var allFollowings = await context.Follows.Where(x => x.FollowingId == userId).ToListAsync();
+            return allFollowings;
+        }
     }
 }

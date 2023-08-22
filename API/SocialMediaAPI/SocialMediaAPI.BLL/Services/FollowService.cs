@@ -178,6 +178,22 @@ namespace SocialMediaAPI.BLL.Services
             return returnUserDtoList;
         }
 
+        public async Task<List<ReturnFollowingIdDto>> GetAllFollowings(Guid userId)
+        {
+            var allFollowingIds = await followRepository.GetAllFollowings(userId);
+            var returnFollowingIdList = new List<ReturnFollowingIdDto>();
+
+            foreach(var follow in allFollowingIds)
+            {
+                var returnFollowingId = new ReturnFollowingIdDto
+                {
+                    Id = follow.FollowerId
+                };
+                returnFollowingIdList.Add(returnFollowingId);
+            }
+            return returnFollowingIdList;
+        }
+
         private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)
         {
             if (authUserId != userId)

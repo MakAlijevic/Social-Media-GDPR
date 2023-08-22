@@ -109,6 +109,7 @@ namespace SocialMediaAPI
 
             app.MapControllers();
             app.MapHub<MessageHub>("/message");
+            app.MapHub<OnlineFollowingHub>("/onlinefollowing");
 
             app.Run();
         }

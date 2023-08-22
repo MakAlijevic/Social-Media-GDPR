@@ -10,6 +10,8 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using SocialMediaAPI.BLL.Interface;
 using SocialMediaAPI.BLL.Services;
+using SocialMediaAPI.HubConfig;
+using Microsoft.AspNetCore.SignalR;
 
 namespace SocialMediaAPI.Controllers
 {
@@ -19,11 +21,14 @@ namespace SocialMediaAPI.Controllers
     {
         private IUserService userService;
         private IConfiguration configuration;
-        public AuthController(IUserService userService, IConfiguration configuration)
+        private IFollowService followService;
+        private IHubContext<OnlineFollowingHub> onlineFollowingHub;
+        public AuthController(IUserService userService, IConfiguration configuration, IFollowService followService, IHubContext<OnlineFollowingHub> onlineFollowingHub)
         {
             this.userService = userService;
             this.configuration = configuration;
-
+            this.followService = followService;
+            this.onlineFollowingHub = onlineFollowingHub;
         }
 
         [HttpPost("register")]
@@ -62,10 +67,13 @@ namespace SocialMediaAPI.Controllers
                 {
                     return BadRequest("Wrong password");
                 }
+                await userService.SetOnline(user.Id);
 
                 string token = CreateToken(user);
 
-                await userService.SetOnline(user.Id);
+                var followsToUpdateOnlineFollowList = await followService.GetAllFollowings(user.Id);
+
+                await onlineFollowingHub.Clients.All.SendAsync("OnlineFollowingUpdate", followsToUpdateOnlineFollowList);
 
                 return Ok(token);
             }
