@@ -4,6 +4,7 @@ import { User } from 'src/models/User.model';
 import { AuthService } from 'src/services/auth.service';
 import { FollowService } from 'src/services/follow.service';
 import { SignalrService } from 'src/services/signalr.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,11 @@ import { SignalrService } from 'src/services/signalr.service';
 export class AppComponent implements OnInit {
   showRegisterForm = true;
   showLoginForm = false;
+  searchParam = '';
 
   onlineFollows!: User[];
 
-  constructor(public router: Router, private authService: AuthService, private followService: FollowService, public signalrService: SignalrService) {
+  constructor(public router: Router, private authService: AuthService, private followService: FollowService, public signalrService: SignalrService, private userService: UserService) {
 
   }
   ngOnInit(): void {
@@ -43,6 +45,10 @@ export class AppComponent implements OnInit {
 
   logoutUser() {
     this.authService.logoutUser();
+  }
+
+  searchUserByName() {
+    this.userService.searchUsersByName(this.searchParam);
   }
 
 }

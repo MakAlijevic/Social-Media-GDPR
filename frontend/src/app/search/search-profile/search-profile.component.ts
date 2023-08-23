@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from 'src/models/User.model';
 
 @Component({
   selector: 'app-search-profile',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-profile.component.css']
 })
 export class SearchProfileComponent {
-
+  @Input() userData!: User;
 }

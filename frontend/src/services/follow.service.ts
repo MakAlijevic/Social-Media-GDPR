@@ -11,6 +11,7 @@ export class FollowService {
 
   public allFollows = new BehaviorSubject<User[]>([]);
   public onlineFollows = new BehaviorSubject<User[]>([]);
+  followedSearchResults = new BehaviorSubject<User[]>([]);
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -44,6 +45,21 @@ export class FollowService {
       },
       error: (result) => {
         console.log("Error while getting online following users : " + result.error);
+      }
+    })
+  }
+
+  searchFollowedUsersByName(searchName: string) {
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+
+    this.http.get<User[]>("https://localhost:7243/api/Follow/SearchFollowedUsers?searchName=" + searchName, requestOptions).subscribe({
+      next: (result) => {
+        this.followedSearchResults.next(result);
+      },
+      error: (result) => {
+        alert("Error while loading search results : " + result.error);
       }
     })
   }

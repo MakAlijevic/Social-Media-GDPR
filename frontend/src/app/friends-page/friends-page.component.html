@@ -13,7 +13,7 @@
                     </svg>
                     <span class="sr-only">Search icon</span>
                 </div>
-                <input type="text" id="search-navbar"
+                <input type="text" id="search-navbar" [(ngModel)]="searchParam" (keydown.enter)="searchFollowedUsersByName()"
                     class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-2xl dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
                     placeholder="Search your friends...">
             </div>

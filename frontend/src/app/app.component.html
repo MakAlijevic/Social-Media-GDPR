@@ -7,7 +7,7 @@
             </a>
             <div class="flex md:order-1">
                 <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
-                    aria-expanded="false"
+                    aria-expanded="false"  (click)="searchUserByName()"
                     class="md:hidden text-buttoncolor dark:text-buttoncolor rounded-lg text-sm p-2.5 mr-1">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 20 20">
@@ -26,7 +26,7 @@
                         </svg>
                         <span class="sr-only">Search icon</span>
                     </div>
-                    <input type="text" id="search-navbar"
+                    <input type="text" id="search-navbar" [(ngModel)]="searchParam" (keydown.enter)="searchUserByName()"
                         class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-2xl dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
                         placeholder="Search...">
                 </div>
@@ -52,7 +52,7 @@
                                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-                    <input type="text" id="search-navbar"
+                    <input type="text" id="search-navbar" 
                         class="block w-full p-2 pl-10 text-sm text-maincolor border border-buttoncolor rounded-2xl dark:text-maincolor dark:placeholder-textcolor dark:text-textcolor"
                         placeholder="Search...">
                 </div>

@@ -6,12 +6,9 @@
             </p>
             <hr class="mt-5 mx-5">
             <div>
-                <app-search-profile></app-search-profile>
-                <app-search-profile></app-search-profile>
-                <app-search-profile></app-search-profile>
-                <app-search-profile></app-search-profile>
-                <app-search-profile></app-search-profile>
-                <app-search-profile></app-search-profile>
+                <div>
+                    <app-search-profile *ngFor="let user of allUsers" [userData]="user"></app-search-profile>
+                </div>
             </div>
             <div class="col-span-12">
                 <nav aria-label="Page navigation example">
