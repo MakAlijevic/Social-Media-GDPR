@@ -32,6 +32,54 @@ export class FollowService {
     })
   }
 
+  
+  addFollow(followingId: string, callback: (success: boolean) => void): void  {
+    const userToken = this.authService.getUserTokenAndDecode();
+  
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    }
+    var requestBody = {
+      followerId: userToken.serialNumber,
+      followingId: followingId
+    }
+
+    this.http.post<any>("https://localhost:7243/api/Follow", requestBody, requestOptions).subscribe({
+      next: () => {
+        callback(true);
+      },
+      error: (result) => {
+        alert("Error while following users : " + result.error);
+        callback(false);
+      }
+    })
+  }
+
+  unfollow(followingId: string, callback: (success: boolean) => void): void {
+    const userToken = this.authService.getUserTokenAndDecode();
+
+    var requestBody = {
+      followerId: userToken.serialNumber,
+      followingId: followingId
+    }
+
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!),
+      responseType: 'text',
+      body: requestBody
+    }
+    
+    this.http.delete<any>("https://localhost:7243/api/Follow", requestOptions).subscribe({
+      next: () => {
+        callback(true);
+      },
+      error: (result) => {
+        alert("Error while unfollowing users : " + result.error);
+        callback(false);
+      }
+    })
+  }
+
   getOnlineFollows() {
     const userToken = this.authService.getUserTokenAndDecode();
     const userId = userToken.serialNumber;
@@ -62,5 +110,28 @@ export class FollowService {
         alert("Error while loading search results : " + result.error);
       }
     })
+  }
+
+  async isUserFollowed(followingId: string): Promise<boolean> {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const followerId = userToken.serialNumber;
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+    var isFollowed = false;
+
+    await this.http.get<boolean>("https://localhost:7243/api/Follow/checkIfUserFollowed?followerId=" + followerId + "&followingId=" + followingId, requestOptions).subscribe({
+      next: (result) => {
+        isFollowed = result;
+        console.log(result);
+      },
+      error: (result) => {
+        alert("Error while loading search results : " + result.error);
+      }
+    })
+    setTimeout(() => {
+      console.log(isFollowed);
+    }, 1000)
+    return isFollowed;
   }
 }

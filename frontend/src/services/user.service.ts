@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
-  userProfileData = new BehaviorSubject<User>(new User("", "", "", "", false, ""));
+  userProfileData = new BehaviorSubject<User>(new User("", "", "", "", false, "",false));
   searchResults = new BehaviorSubject<User[]>([]);
 
   constructor(private http: HttpClient, private authService: AuthService, private postService: PostService, private router: Router) { }

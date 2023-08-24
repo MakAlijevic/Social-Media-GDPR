@@ -64,9 +64,9 @@ export class AuthService {
       next: (result) => {
         localStorage.setItem("userToken", result)
         alert("Successfully logged in!");
-        this.router.navigate(['/home']);
         this.showLoginForm.next(false);
         this.showRegisterForm.next(false);
+        this.router.navigate(['/home']);
         return true;
       },
       error: (result) => {
