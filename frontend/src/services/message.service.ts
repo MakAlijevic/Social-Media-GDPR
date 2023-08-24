@@ -12,6 +12,7 @@ export class MessageService {
 
   public messagesFriends = new BehaviorSubject<User[]>([]);
   public activeMessages = new BehaviorSubject<Message[]>([]);
+  public activeUserForMessagesId = new BehaviorSubject<string>("");
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -42,6 +43,7 @@ export class MessageService {
     this.http.get<Message[]>("https://localhost:7243/api/Message/GetAllMessagesBetweenFriends?FollowerId=" + userId + "&FollowingId=" + recieverId, requestOptions).subscribe({
       next: (result) => {
         this.activeMessages.next(result);
+        this.activeUserForMessagesId.next(recieverId);
       },
       error: (result) => {
         alert("Error while loading your messages : " + result.error);
