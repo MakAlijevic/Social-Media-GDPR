@@ -46,13 +46,15 @@ namespace SocialMediaAPI.DAL.Repository
             return;
         }
 
-        public async Task<List<User>> SearchUsersByName(string searchName)
+
+        public async Task<List<User>> SearchUsersByName(Guid userId, string searchName)
         {
             var users = await context.Users
                 .Where(
-                user => user.FirstName.Contains(searchName) || 
-                user.LastName.Contains(searchName) ||
-                (user.FirstName + " " + user.LastName).Contains(searchName))
+                    user => user.Id != userId && // Exclude the current user
+                    (user.FirstName.Contains(searchName) ||
+                     user.LastName.Contains(searchName) ||
+                     (user.FirstName + " " + user.LastName).Contains(searchName)))
                 .ToListAsync();
 
             return users;

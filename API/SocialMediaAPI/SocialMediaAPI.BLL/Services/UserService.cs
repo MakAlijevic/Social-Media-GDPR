@@ -120,7 +120,7 @@ namespace SocialMediaAPI.BLL.Services
 
         public async Task<List<ReturnSearchedUsers>> SearchUsersByName(Guid userId, string searchName)
         {
-            var users = await userRepository.SearchUsersByName(searchName);
+            var users = await userRepository.SearchUsersByName(userId, searchName);
             var returnUserDtoList = new List<ReturnSearchedUsers>();
 
             foreach (var user in users)
