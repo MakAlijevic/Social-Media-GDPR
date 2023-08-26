@@ -34,10 +34,12 @@ export class RegisterComponent {
 
   registerUser() {
     var registerUserDto = new RegisterUserDto(this.registerUserForm.value.firstName!, this.registerUserForm.value.lastName!, this.registerUserForm.value.email!, this.registerUserForm.value.password!, this.registerUserForm.value.confirmPassword!);
-    var status = this.authService.registerUserAndValidate(registerUserDto);
-    if (status === true) {
-      this.registerUserForm.reset();
-    }
+    this.authService.registerUserAndValidate(registerUserDto, (success) => {
+      if (success === true) {
+        this.registerUserForm.reset();
+        this.showLogin();
+      }
+    });
   }
 
 }

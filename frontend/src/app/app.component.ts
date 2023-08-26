@@ -44,7 +44,11 @@ export class AppComponent implements OnInit {
   }
 
   logoutUser() {
-    this.authService.logoutUser();
+    this.authService.logoutUser((success) => {
+      if (success === true) {
+        this.showLoginForm = true;
+      }
+    });
   }
 
   searchUserByName() {

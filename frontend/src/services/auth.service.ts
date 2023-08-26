@@ -25,14 +25,14 @@ export class AuthService {
     });
   }
 
-  registerUserAndValidate(userDto: RegisterUserDto): boolean {
+  registerUserAndValidate(userDto: RegisterUserDto, callback: (success: boolean) => void): void {
     if (userDto.firstName == '' || userDto.lastName == '' || userDto.email == '' || userDto.password == '' || userDto.confirmPassword == '') {
       alert("You are missing a value in a field. Please fill in all the fields in order to register your account!");
-      return false;
+      callback(false);
     }
     if (userDto.password !== userDto.confirmPassword) {
       alert("Please enter correct password confirmation!");
-      return false;
+      callback(false);
     }
 
     var registerUserDto = {
@@ -48,15 +48,14 @@ export class AuthService {
         alert("Successfully registered");
         this.showLoginForm.next(true);
         this.showRegisterForm.next(false);
-        return true;
+        callback(true);
       },
       error: (result) => {
         console.log(result);
         alert("Unsuccessfull register : '" + result.error + "'");
-        return false;
+        callback(false);
       }
     })
-    return false;
   }
 
   loginUser(loginUserDto: LoginUserDto, callback: (success: boolean) => void): void {
@@ -73,7 +72,7 @@ export class AuthService {
     });
   }
 
-  logoutUser() {
+  logoutUser(callback: (success: boolean) => void) {
     const userToken = this.getUserTokenAndDecode();
     const userId = userToken.serialNumber;
     const requestOptions: Object = {
@@ -84,9 +83,11 @@ export class AuthService {
         localStorage.removeItem("userToken");
         this.showLoginForm.next(true);
         this.router.navigate(['']);
+        callback(true);
       },
       error: (result) => {
         alert("Unsuccessfull logout : " + result.error);
+        callback(false)
       }
     });
   }
@@ -102,7 +103,8 @@ export class AuthService {
       }
       else if (tokenExpired == true) {
         alert("Your token has expired please login again");
-        this.logoutUser();
+        this.logoutUser((success) => {
+        });
       }
     } else {
       this.showRegisterForm.next(true);
