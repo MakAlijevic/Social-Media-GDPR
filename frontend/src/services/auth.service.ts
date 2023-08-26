@@ -59,32 +59,26 @@ export class AuthService {
     return false;
   }
 
-  loginUser(loginUserDto: LoginUserDto): boolean {
+  loginUser(loginUserDto: LoginUserDto, callback: (success: boolean) => void): void {
     this.http.post("https://localhost:7243/api/Auth/login", loginUserDto, { responseType: 'text' }).subscribe({
       next: (result) => {
         localStorage.setItem("userToken", result)
         alert("Successfully logged in!");
-        this.showLoginForm.next(false);
-        this.showRegisterForm.next(false);
-        this.router.navigate(['/home']);
-        return true;
+        callback(true);
       },
       error: (result) => {
         alert("Unsuccessfull login : " + result.error);
-        return false;
+        callback(false);
       }
     });
-    return false;
   }
 
   logoutUser() {
     const userToken = this.getUserTokenAndDecode();
     const userId = userToken.serialNumber;
-    console.log(userId);
     const requestOptions: Object = {
       headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
     };
-    console.log(requestOptions);
     this.http.post("https://localhost:7243/api/Auth/logout?userId=" + userId, null, requestOptions).subscribe({
       next: (result) => {
         localStorage.removeItem("userToken");
@@ -122,7 +116,8 @@ export class AuthService {
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
       if (decodedToken.exp) {
         const currentTimestamp = Math.floor(Date.now() / 1000);
-        return decodedToken.exp < currentTimestamp;
+        const checkIncrementDecodedToken = decodedToken.exp - 900;
+        return checkIncrementDecodedToken < currentTimestamp;
       } else {
         return false;
       }
