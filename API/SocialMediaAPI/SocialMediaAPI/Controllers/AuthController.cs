@@ -83,12 +83,22 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
-        [HttpPost("logout"), Authorize]
+        [HttpPost("logout")]
         public async Task<ActionResult> Logout(Guid userId)
         {
             try
             {
-                var userIdClaim = User.FindFirst("serialNumber");
+                var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    return BadRequest("Authorization token is missing.");
+                }
+
+                var jwtHandler = new JwtSecurityTokenHandler();
+                var jwtToken = jwtHandler.ReadJwtToken(token);
+
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "serialNumber");
                 if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
                 {
                     return BadRequest("Invalid authentication token.");
