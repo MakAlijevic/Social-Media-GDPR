@@ -48,6 +48,5 @@ namespace SocialMediaAPI.DAL.Repository
 
             return like;
         }
-
     }
 }

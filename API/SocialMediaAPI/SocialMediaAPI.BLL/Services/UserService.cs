@@ -14,10 +14,12 @@ namespace SocialMediaAPI.BLL.Services
     {
         private IUserRepository userRepository;
         private IPolicyService policyService;
-        public UserService(IUserRepository userRepository, IPolicyService policyService) 
+        private IFollowService followService;
+        public UserService(IUserRepository userRepository, IPolicyService policyService, IFollowService followService) 
         {
             this.userRepository = userRepository;
             this.policyService = policyService;
+            this.followService = followService;
         }
         public async Task<User> RegisterUser(CreateUserDto user)
         {
@@ -116,20 +118,22 @@ namespace SocialMediaAPI.BLL.Services
             return;
         }
 
-        public async Task<List<ReturnUserDto>> SearchUsersByName(string searchName)
+        public async Task<List<ReturnSearchedUsers>> SearchUsersByName(Guid userId, string searchName)
         {
             var users = await userRepository.SearchUsersByName(searchName);
-            var returnUserDtoList = new List<ReturnUserDto>();
+            var returnUserDtoList = new List<ReturnSearchedUsers>();
 
             foreach (var user in users)
             {
-                var returnUserDto = new ReturnUserDto
+                var isFollower = await followService.CheckExistingFollow(userId, userId, user.Id);
+                var returnUserDto = new ReturnSearchedUsers
                 {
+                    UserId = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
                     IsOnline = user.IsOnline,
-                    CreatedAt = user.CreatedAt
+                    IsFollowed = isFollower
                 };
 
                 returnUserDtoList.Add(returnUserDto);

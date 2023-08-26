@@ -65,7 +65,7 @@ namespace SocialMediaAPI.Controllers
         }
 
         [HttpGet("allFollows"), Authorize]
-        public async Task<ActionResult<List<ReturnFollowDto>>> GetAllFollows(Guid userId, int pageNumber, int pageSize)
+        public async Task<ActionResult<List<ReturnFollowDto>>> GetAllFollows(Guid userId)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace SocialMediaAPI.Controllers
                 {
                     return BadRequest("Invalid authentication token.");
                 }
-                return Ok(await followService.GetAllFollows(authUserId, userId, pageNumber, pageSize));
+                return Ok(await followService.GetAllFollows(authUserId, userId));
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -108,9 +108,31 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
+        [HttpGet("CheckIfUserFollowed"), Authorize]
+        public async Task<ActionResult<Boolean>> CheckExistingFollow(Guid followerId, Guid followingId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await followService.CheckExistingFollow(authUserId, followerId, followingId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpGet("SearchFollowedUsers"), Authorize]
-        public async Task<ActionResult<List<ReturnUserDto>>> SearchFollowedUserByName(string searchName)
+        public async Task<ActionResult<List<ReturnFollowDto>>> SearchFollowedUserByName(string searchName)
         {
             try
             {

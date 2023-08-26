@@ -16,5 +16,6 @@ namespace SocialMediaAPI.BLL.Interface
         Task<string> DeletePost(Guid authUserId, DeletePostDto deletePostDto);
         Task<List<ReturnPostDto>> GetPostsByUserId(Guid authUserId, Guid userId);
         Task<List<ReturnPostDto>> GetAllPosts(Guid authUserId, Guid userId, int pageNumber, int pageSize);
+        Task<int> GetTotalAmoutOfPosts(Guid authUserId, Guid userId);
     }
 }

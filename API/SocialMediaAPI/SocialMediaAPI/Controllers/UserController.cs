@@ -39,7 +39,7 @@ namespace SocialMediaAPI.Controllers
         }
 
         [HttpGet("SearchAllUsers"), Authorize]
-        public async Task<ActionResult<List<ReturnUserDto>>> SearchUserByName(string searchName)
+        public async Task<ActionResult<List<ReturnSearchedUsers>>> SearchUserByName(string searchName)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace SocialMediaAPI.Controllers
                 {
                     return BadRequest("Invalid authentication token.");
                 }
-                return Ok(await userService.SearchUsersByName(searchName));
+                return Ok(await userService.SearchUsersByName(authUserId, searchName));
             }
             catch (UnauthorizedAccessException ex)
             {

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SocialMediaAPI.BLL.DTO
 {
-    public class ReturnFollowDto
+    public class ReturnSearchedUsers
     {
         public Guid UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public bool IsOnline { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsFollowed { get; set; }

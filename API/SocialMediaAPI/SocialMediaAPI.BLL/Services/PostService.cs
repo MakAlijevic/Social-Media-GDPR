@@ -18,10 +18,12 @@ namespace SocialMediaAPI.BLL.Services
     {
         private IPostRepository postRepository;
         private IUserRepository userRepository;
-        public PostService(IPostRepository postRepository, IUserRepository userRepository)
+        private ILikeRepository likeRepository; 
+        public PostService(IPostRepository postRepository, IUserRepository userRepository, ILikeRepository likeRepository)
         {
             this.postRepository = postRepository;
             this.userRepository = userRepository;
+            this.likeRepository = likeRepository;
         }
 
         public async Task<Post> AddPost(CreatePostDto postDto)
@@ -85,7 +87,7 @@ namespace SocialMediaAPI.BLL.Services
                 {
                     var returnPost = new ReturnPostDto
                     {
-                        Id = post.Id,   
+                        Id = post.Id,
                         Author = post.Author,
                         FirstName = author.FirstName,
                         LastName = author.LastName,
@@ -93,7 +95,8 @@ namespace SocialMediaAPI.BLL.Services
                         Content = post.Content,
                         CreatedAt = post.CreatedAt,
                         Comments = returnComments,
-                        Likes = post.Likes.Count
+                        Likes = post.Likes.Count,
+                        IsLiked = await likeRepository.GetLikeByPostIdAndUserId(post.Id, authUserId) != null ? true : false
                     };
 
                     returnPosts.Add(returnPost);
@@ -147,6 +150,13 @@ namespace SocialMediaAPI.BLL.Services
             return returnPost;
         }
 
+        public async Task<int> GetTotalAmoutOfPosts(Guid authUserId, Guid userId)
+        {
+            CheckIsUserValidAgainstJWT(authUserId, userId);
+
+            return await postRepository.GetTotalAmountOfPosts(userId);
+        }
+
         public async Task<List<ReturnPostDto>> GetPostsByUserId(Guid authUserId, Guid userId)
         {
             CheckIsUserValidAgainstJWT(authUserId, userId);
@@ -194,7 +204,8 @@ namespace SocialMediaAPI.BLL.Services
                         Content = post.Content,
                         CreatedAt = post.CreatedAt,
                         Comments = returnComments,
-                        Likes = post.Likes.Count
+                        Likes = post.Likes.Count,
+                        IsLiked = await likeRepository.GetLikeByPostIdAndUserId(post.Id, authUserId) != null ? true : false
                     };
 
                     returnPosts.Add(returnPost);

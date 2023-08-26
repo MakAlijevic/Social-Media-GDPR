@@ -88,6 +88,28 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
+        [HttpGet("GetTotalAmountOfPosts"), Authorize]
+        public async Task<ActionResult<int>> GetTotalAmuntOfPosts(Guid userId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await postService.GetTotalAmoutOfPosts(authUserId, userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete, Authorize]
         public async Task<ActionResult<Post>> DeletePost(DeletePostDto deletePostDto)
         {

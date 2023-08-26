@@ -59,6 +59,35 @@ namespace SocialMediaAPI.DAL.Repository
             return pagedPosts;
         }
 
+        public async Task<int> GetTotalAmountOfPosts(Guid userId)
+        {
+            var followerIds = await context.Follows
+                .Where(follower => follower.FollowerId == userId)
+                .Select(follower => follower.FollowingId)
+                .ToListAsync();
+
+            var userPostsQuery = context.Posts
+                .Where(post => post.Author == userId)
+                .Include(post => post.Comments)
+                .Include(post => post.Likes)
+                .OrderByDescending(post => post.CreatedAt);
+
+            var followersPostsQuery = context.Posts
+                .Where(post => followerIds.Contains(post.Author))
+                .Include(post => post.Comments)
+                .Include(post => post.Likes)
+                .OrderByDescending(post => post.CreatedAt);
+
+            var allPostsQuery = userPostsQuery
+                .Union(followersPostsQuery)
+                .OrderByDescending(post => post.CreatedAt);
+
+            var allPosts = await allPostsQuery.ToListAsync();
+
+            return allPosts.Count;
+        }
+
+
         public async Task DeletePost(Post post)
         {
             context.Remove(post);

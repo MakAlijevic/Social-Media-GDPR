@@ -94,6 +94,8 @@ namespace SocialMediaAPI.Controllers
                     return BadRequest("Invalid authentication token.");
                 }
                 await userService.SetOffline(authUserId, userId);
+                var followsToUpdateOnlineFollowList = await followService.GetAllFollowings(userId);
+                await onlineFollowingHub.Clients.All.SendAsync("OnlineFollowingUpdate", followsToUpdateOnlineFollowList);
                 return Ok();
             }
             catch (UnauthorizedAccessException ex)

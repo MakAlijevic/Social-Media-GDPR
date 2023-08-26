@@ -1,4 +1,5 @@
-﻿using SocialMediaAPI.BLL.DTO;
+﻿using Microsoft.IdentityModel.Tokens;
+using SocialMediaAPI.BLL.DTO;
 using SocialMediaAPI.BLL.Interface;
 using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Models;
@@ -81,11 +82,11 @@ namespace SocialMediaAPI.BLL.Services
             return ("Successfully unfollowed");
         }
 
-        public async Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId, int pageNumber, int pageSize)
+        public async Task<List<ReturnFollowDto>> GetAllFollows(Guid authUserId, Guid userId)
         {
             CheckIsUserValidAgainstJWT(authUserId, userId);
 
-            var allFollows = await followRepository.GetAllFollows(userId, pageNumber, pageSize);
+            var allFollows = await followRepository.GetAllFollows(userId);
 
             var resultFollows = new List<ReturnFollowDto>();
 
@@ -103,6 +104,7 @@ namespace SocialMediaAPI.BLL.Services
                         Email = user.Email,
                         IsOnline = user.IsOnline,
                         CreatedAt = user.CreatedAt,
+                        IsFollowed = true
                     };
 
                     resultFollows.Add(returnFollow);
@@ -112,11 +114,19 @@ namespace SocialMediaAPI.BLL.Services
             return resultFollows;
         }
 
+        public async Task<Boolean> CheckExistingFollow(Guid authUserId, Guid followerId, Guid followingId)
+        {
+            CheckIsUserValidAgainstJWT(authUserId, followerId);
+
+            var followedUser = await followRepository.CheckExistingFollow(followerId, followingId);
+            return followedUser != null;
+        }
+
         public async Task<List<ReturnFollowDto>> GetOnlineFollows(Guid authUserId, Guid userId)
         {
             CheckIsUserValidAgainstJWT(authUserId, userId);
 
-            var allFollows = await followRepository.GetAllFollowsWithoutPagination(userId);
+            var allFollows = await followRepository.GetAllFollows(userId);
 
             var onlineFollows = new List<ReturnFollowDto>();
 
@@ -156,21 +166,22 @@ namespace SocialMediaAPI.BLL.Services
             return true;
         }
 
-        public async Task<List<ReturnUserDto>> SearchFollowedUsersByName(Guid userId, string searchName)
+        public async Task<List<ReturnFollowDto>> SearchFollowedUsersByName(Guid userId, string searchName)
         {
             var users = await followRepository.SearchFollowedUsersByName(userId, searchName);
-            var returnUserDtoList = new List<ReturnUserDto>();
+            var returnUserDtoList = new List<ReturnFollowDto>();
 
             foreach (var user in users)
             {
-                var returnUserDto = new ReturnUserDto
+                var returnUserDto = new ReturnFollowDto
                 {
                     UserId = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
                     IsOnline = user.IsOnline,
-                    CreatedAt = user.CreatedAt
+                    CreatedAt = user.CreatedAt,
+                    IsFollowed = true
                 };
 
                 returnUserDtoList.Add(returnUserDto);
@@ -180,7 +191,7 @@ namespace SocialMediaAPI.BLL.Services
 
         public async Task<List<ReturnFollowingIdDto>> GetAllFollowings(Guid userId)
         {
-            var allFollowingIds = await followRepository.GetAllFollowings(userId);
+            var allFollowingIds = await followRepository.GetAllFollows(userId);
             var returnFollowingIdList = new List<ReturnFollowingIdDto>();
 
             foreach(var follow in allFollowingIds)
