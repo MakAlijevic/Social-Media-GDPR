@@ -24,11 +24,17 @@ export class FriendsPageComponent implements OnInit {
   }
 
   searchFollowedUsersByName() {
+    if(this.searchParam == null || this.searchParam == '') {
+      this.followService.getAllFollows()
+      this.followService.allFollows.subscribe(result => {
+        this.allFriends = result;
+      })
+    }
+    else {
     this.followService.searchFollowedUsersByName(this.searchParam);
     this.followService.followedSearchResults.subscribe(result => {
       this.allFriends = result;
     })
-
   }
-
+  }
 }
