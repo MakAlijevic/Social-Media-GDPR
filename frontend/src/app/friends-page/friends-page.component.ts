@@ -7,13 +7,20 @@ import { FollowService } from 'src/services/follow.service';
   templateUrl: './friends-page.component.html',
   styleUrls: ['./friends-page.component.css']
 })
-export class FriendsPageComponent {
+export class FriendsPageComponent implements OnInit {
 
   allFriends!: User[];
   searchParam = '';
 
   constructor(private followService: FollowService) {
 
+  }
+
+  ngOnInit(): void {
+    this.followService.getAllFollows()
+    this.followService.allFollows.subscribe(result => {
+      this.allFriends = result;
+    })
   }
 
   searchFollowedUsersByName() {

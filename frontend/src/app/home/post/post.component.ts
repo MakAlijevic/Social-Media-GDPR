@@ -30,4 +30,22 @@ export class PostComponent {
     }
   }
 
+  likePost() {
+    this.postService.likePost(this.post.id, (success) => {
+      if(success === true) {
+        this.post.isLiked = true;
+        this.post.likes ++;
+      }
+  });
+}
+
+  unlikePost() {
+    this.postService.unlikePost(this.post.id, (success) => {
+      if(success === true) {
+        this.post.isLiked = false;
+        this.post.likes --;
+      }
+  });
+ }
+
 }

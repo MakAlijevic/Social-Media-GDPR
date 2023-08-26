@@ -10,8 +10,9 @@ export class Post {
     public createdAt: string;
     public comments: Comment[];
     public likes: number;
+    public isLiked: boolean;
 
-    constructor(id: string, author: string, firstName: string, lastName: string, email: string, content: string, createdAt: string, comments: Comment[], likes: number) {
+    constructor(id: string, author: string, firstName: string, lastName: string, email: string, content: string, createdAt: string, comments: Comment[], likes: number, isLiked: boolean) {
         this.id = id;
         this.author = author;
         this.firstName = firstName;
@@ -21,5 +22,6 @@ export class Post {
         this.createdAt = createdAt;
         this.comments = comments;
         this.likes = likes;
+        this.isLiked = isLiked;
     }
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Post } from 'src/models/Post.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class PostService {
       next: () => {
         alert("Post successfully posted!");
         this.resetCreatePostForm();
-        this.getDashboardPosts();
+        this.getDashboardPosts(1);
       },
       error: (result) => {
         alert("There was an error while posting your post : " + result.error);
@@ -37,14 +37,15 @@ export class PostService {
     });
   }
 
-  getDashboardPosts() {
+  getDashboardPosts(pageNumber: number) {
     const userToken = this.authService.getUserTokenAndDecode();
     const userId = userToken.serialNumber;
+    const pageSize = 5;
     const requestOptions: Object = {
       headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
     };
 
-    this.http.get<Post[]>("https://localhost:7243/api/Post/GetDashboardPostsByUserId?userId=" + userId, requestOptions).subscribe({
+    this.http.get<Post[]>("https://localhost:7243/api/Post/GetDashboardPostsByUserId?userId=" + userId + "&pageNumber=" + pageNumber + "&pageSize=" + pageSize, requestOptions).subscribe({
       next: (result) => {
         this.dashboardPosts.next(result);
       },
@@ -52,6 +53,16 @@ export class PostService {
         alert("Error while loading dashboard posts : " + result.error);
       }
     })
+  }
+
+  getTotalAmountOfPosts(): Observable<number> {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+  
+    return this.http.get<number>("https://localhost:7243/api/Post/GetTotalAmountOfPosts?userId=" + userId, requestOptions);
   }
 
   getUserProfilePosts() {
@@ -86,11 +97,58 @@ export class PostService {
     this.http.post("https://localhost:7243/api/Comment", requestBody, requestOptions).subscribe({
       next: () => {
         alert("Comment added successfully");
-        this.getDashboardPosts();
+        this.getDashboardPosts(1);
         this.getUserProfilePosts();
       },
       error: (result) => {
         alert("Error while adding your comment : " + result.error);
+      }
+    });
+  }
+
+  likePost(postId: string , callback: (success: boolean) => void): void {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestBody = {
+      author: userId,
+      postId: postId
+    }
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+
+    this.http.post("https://localhost:7243/api/Like", requestBody, requestOptions).subscribe({
+      next: () => {
+        callback(true);
+      },
+      error: (result) => {
+        alert("Error while adding your like : " + result.error);
+        callback(false);
+      }
+    });
+  }
+
+  
+  unlikePost(postId: string, callback: (success: boolean) => void): void {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestBody = {
+      author: userId,
+      postId: postId
+    }
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!),
+      responseType: 'text',
+      body: requestBody
+    };
+
+    this.http.delete("https://localhost:7243/api/Like", requestOptions).subscribe({
+      next: () => {
+        callback(true);
+      },
+      error: (result) => {
+        alert("Error while adding your like : " + result.error);
+        callback(false);
       }
     });
   }
