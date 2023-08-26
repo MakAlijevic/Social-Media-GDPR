@@ -198,7 +198,7 @@ namespace SocialMediaAPI.BLL.Services
             {
                 var returnFollowingId = new ReturnFollowingIdDto
                 {
-                    Id = follow.FollowerId
+                    Id = follow.FollowingId
                 };
                 returnFollowingIdList.Add(returnFollowingId);
             }
