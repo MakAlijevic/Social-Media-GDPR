@@ -47,6 +47,30 @@ namespace SocialMediaAPI.Controllers
             }
         }
 
+        [HttpPost("StartAChat"), Authorize]
+        public async Task<ActionResult<Message>> StartAChat(NewChatDto newChatDto)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+
+                await messageHub.Clients.All.SendAsync("MessageAdded");
+                return Ok(await messageService.StartAChat(authUserId, newChatDto));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("GetAllMessagesBetweenFriends"), Authorize]
         public async Task<ActionResult<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId)
         {
@@ -59,6 +83,29 @@ namespace SocialMediaAPI.Controllers
                 }
 
                 return Ok(await messageService.GetAllMessagesBetweenFriends(FollowerId, FollowingId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("CheckIfChatExists"), Authorize]
+        public async Task<ActionResult<bool>> CheckIfChatExists(Guid FollowerId, Guid FollowingId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+
+                return Ok(await messageService.CheckIfChatExists(FollowerId, FollowingId));
             }
             catch (UnauthorizedAccessException ex)
             {

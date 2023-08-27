@@ -45,8 +45,6 @@ export class AuthService {
 
     this.http.post("https://localhost:7243/api/Auth/register", registerUserDto).subscribe({
       next: () => {
-        alert("Successfully registered");
-        this.showLoginForm.next(true);
         this.showRegisterForm.next(false);
         callback(true);
       },

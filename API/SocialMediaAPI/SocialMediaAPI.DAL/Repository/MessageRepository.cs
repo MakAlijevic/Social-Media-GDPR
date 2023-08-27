@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SocialMediaAPI.DAL.Data;
 using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Models;
@@ -35,6 +36,18 @@ namespace SocialMediaAPI.DAL.Repository
                 .ToListAsync();
 
             return messages;
+        }
+
+        public async Task<bool> CheckIfChatExists(Guid FollowerId, Guid FollowingId)
+        {
+            var messages = await context.Messages
+                .Where(message =>
+                    (message.SenderId == FollowerId && message.RecieverId == FollowingId) ||
+                    (message.SenderId == FollowingId && message.RecieverId == FollowerId))
+                .OrderBy(message => message.CreatedAt)
+                .ToListAsync();
+
+            return !messages.IsNullOrEmpty();
         }
 
         public async Task<List<Message>> GetAllFriendsForMessages(Guid userId)

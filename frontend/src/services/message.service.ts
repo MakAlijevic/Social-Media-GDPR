@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { User } from 'src/models/User.model';
 import { BehaviorSubject } from 'rxjs';
 import { Message } from 'src/models/Message.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class MessageService {
   public activeMessages = new BehaviorSubject<Message[]>([]);
   public activeUserForMessagesId = new BehaviorSubject<string>("");
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
   getMessagesFriendsList() {
     const userToken = this.authService.getUserTokenAndDecode();
@@ -51,6 +52,25 @@ export class MessageService {
     });
   }
 
+  doesChatExist(recieverId: string, callback: (success: boolean) => void): void {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+
+    this.http.get<boolean>("https://localhost:7243/api/Message/CheckIfChatExists?FollowerId=" + userId + "&FollowingId=" + recieverId, requestOptions).subscribe({
+      next: (result) => {
+        callback(result);
+      },
+      error: (result) => {
+        alert("Error while loading your messages : " + result.error);
+        callback(false);
+      }
+    });
+  }
+
+
   addNewMessageToActiveChat(recieverId: string, content: string): any {
     if (content === "") {
       return;
@@ -72,6 +92,27 @@ export class MessageService {
         currentActiveMessages.push(result);
         this.activeMessages.next(currentActiveMessages);
         this.resetSendMessageForm();
+      },
+      error: (result) => {
+        alert("Error while sending your message : " + result.error);
+      }
+    });
+  }
+
+  startAChat(recieverId: string): any {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!)
+    };
+    const requestBody = {
+      senderId: userId,
+      recieverId: recieverId
+    }
+
+    this.http.post<Message>("https://localhost:7243/api/Message/StartAChat", requestBody, requestOptions).subscribe({
+      next: (result) => {
+        this.router.navigate(['/messages']);
       },
       error: (result) => {
         alert("Error while sending your message : " + result.error);

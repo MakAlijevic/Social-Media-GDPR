@@ -43,12 +43,38 @@ namespace SocialMediaAPI.BLL.Services
             
         }
 
+        public async Task<Message> StartAChat(Guid authUserId, NewChatDto newChatDto)
+        {
+            CheckIsUserValidAgainstJWT(authUserId, newChatDto.SenderId);
+
+            var message = new Message
+            {
+                SenderId = newChatDto.SenderId,
+                RecieverId = newChatDto.RecieverId,
+                Content= newChatDto.Content,
+                IsRead = false,
+                CreatedAt = DateTime.Now
+            };
+
+            var returnMessage = await messageRepository.AddMessage(message);
+            return returnMessage;
+
+        }
+
 
         public async Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId)
         {
             var messages = await messageRepository.GetAllMessagesBetweenFriends(FollowerId, FollowingId);
 
             return messages;
+
+        }
+
+        public async Task<bool> CheckIfChatExists(Guid FollowerId, Guid FollowingId)
+        {
+            var exists = await messageRepository.CheckIfChatExists(FollowerId, FollowingId);
+
+            return exists;
 
         }
 

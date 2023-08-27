@@ -13,5 +13,6 @@ namespace SocialMediaAPI.DAL.Interface
         Task<Message> AddMessage(Message message);
         Task<List<Message>> GetAllMessagesBetweenFriends(Guid FollowerId, Guid FollowingId);
         Task<List<Message>> GetAllFriendsForMessages(Guid userId);
+        Task<bool> CheckIfChatExists(Guid FollowerId, Guid FollowingId);
     }
 }
