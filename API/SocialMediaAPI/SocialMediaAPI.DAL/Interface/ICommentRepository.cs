@@ -10,5 +10,7 @@ namespace SocialMediaAPI.DAL.Interface
     public interface ICommentRepository
     {
         Task<Comment> AddComment(Post post, Comment comment);
+        Task<bool> RemoveComment(Post post, Comment comment);
+        Task<Comment> GetCommentByPostAndCommentId(Guid postId, Guid commentId);
     }
 }

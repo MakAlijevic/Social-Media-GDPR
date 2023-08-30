@@ -39,5 +39,27 @@ namespace SocialMediaAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete, Authorize]
+        public async Task<ActionResult<Like>> DeleteComment(DeleteCommentDto deleteCommentDto)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("serialNumber");
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid authUserId))
+                {
+                    return BadRequest("Invalid authentication token.");
+                }
+                return Ok(await commentService.RemoveComment(authUserId, deleteCommentDto));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

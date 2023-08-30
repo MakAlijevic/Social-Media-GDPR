@@ -11,5 +11,6 @@ namespace SocialMediaAPI.BLL.Interface
     public interface ICommentService
     {
         Task<Comment> AddComment(Guid authUserId, AddCommentDto addCommentDto);
+        Task<bool> RemoveComment(Guid authUserId, DeleteCommentDto deleteCommentDto);
     }
 }
