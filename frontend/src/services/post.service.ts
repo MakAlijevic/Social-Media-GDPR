@@ -96,7 +96,6 @@ export class PostService {
 
     this.http.post("https://localhost:7243/api/Comment", requestBody, requestOptions).subscribe({
       next: () => {
-        alert("Comment added successfully");
         this.getDashboardPosts(1);
         this.getUserProfilePosts();
       },

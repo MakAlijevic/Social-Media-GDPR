@@ -41,6 +41,7 @@
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg lg:text-2xl font-bold text-textcolor dark:text-textcolor">Comments</h2>
             </div>
+            <app-comment *ngFor="let comment of post.comments" [comment]="comment"></app-comment>
             <div class="mb-6">
                 <div
                     class="py-2 px-4 mb-4 bg-lightcolor rounded-lg rounded-t-lg border border-buttoncolor dark:bg-lightcolor">
@@ -54,7 +55,6 @@
                     Post comment
                 </button>
             </div>
-            <app-comment *ngFor="let comment of post.comments" [comment]="comment"></app-comment>
         </div>
     </section>
 </a>
