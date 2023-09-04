@@ -55,15 +55,7 @@ namespace SocialMediaAPI.BLL.Services
             CheckIsUserValidAgainstJWT(authUserId, deleteCommentDto.Author);
             var user = await userRepository.GetUserById(authUserId);
 
-            var post = await postRepository.GetPostById(deleteCommentDto.PostId);
-            var comment = await commentRepository.GetCommentByPostAndCommentId(deleteCommentDto.PostId, deleteCommentDto.CommentId);
-
-            if (comment == null)
-            {
-                throw new Exception("Post doesnt exits");
-            }
-
-            return await commentRepository.RemoveComment(post, comment);
+            return await commentRepository.RemoveComment(deleteCommentDto.CommentId);
         }
 
         private bool CheckIsUserValidAgainstJWT(Guid authUserId, Guid userId)

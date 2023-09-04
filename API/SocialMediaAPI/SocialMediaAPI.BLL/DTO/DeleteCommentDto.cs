@@ -9,7 +9,6 @@ namespace SocialMediaAPI.BLL.DTO
     public class DeleteCommentDto
     {
         public Guid Author { get; set; }
-        public Guid PostId { get; set; }
         public Guid CommentId { get; set; }
     }
 }

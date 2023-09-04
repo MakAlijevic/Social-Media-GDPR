@@ -4,6 +4,7 @@ using SocialMediaAPI.DAL.Interface;
 using SocialMediaAPI.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,33 +26,18 @@ namespace SocialMediaAPI.DAL.Repository
             return comment;
         }
 
-        public async Task<bool> RemoveComment(Post post, Comment comment)
+        public async Task<bool> RemoveComment(Guid commentId)
         {
-            if (post.Comments.Contains(comment))
-            {
-                post.Comments.Remove(comment);
-                await context.SaveChangesAsync();
-                return true;
-            }
-            return false;
-        }
+            var commentToRemove = await context.Comments.FindAsync(commentId);
 
-        public async Task<Comment> GetCommentByPostAndCommentId(Guid postId, Guid commentId)
-        {
-            var post = await context.Posts
-                .Include(p => p.Comments)
-                .FirstOrDefaultAsync(p => p.Id == postId);
-
-            if (post != null)
+            if (commentToRemove == null)
             {
-                var comment = post.Comments.FirstOrDefault(c => c.Id == commentId);
-                return comment;
+                return false;
             }
 
-            return null;
+            context.Comments.Remove(commentToRemove);
+            await context.SaveChangesAsync();
+            return true;
         }
-
-
-
     }
 }
