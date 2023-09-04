@@ -37,13 +37,15 @@ export class SignalrService {
       const recieverMessage = this.messageService.activeMessages.getValue()[0];
       const userToken = this.authService.getUserTokenAndDecode();
       const userId = userToken.serialNumber;
-      var reciever;
+      var reciever = "";
       if (recieverMessage.senderId === userId) {
         reciever = recieverMessage.recieverId;
       } else {
         reciever = recieverMessage.senderId;
       }
-      this.messageService.getMessagesSingleChat(reciever);
+      setTimeout(()=> {
+        this.messageService.getMessagesSingleChat(reciever);
+      }, 750);
     })
 
   }

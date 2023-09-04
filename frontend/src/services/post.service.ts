@@ -156,4 +156,52 @@ export class PostService {
     const postContent = document.getElementById("createPostContent") as HTMLInputElement;
     postContent.value = "";
   }
+
+  deletePost(postId: string) {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestBody = {
+      author: userId,
+      postId: postId
+    }
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!),
+      responseType: 'text',
+      body: requestBody
+    };
+
+    this.http.delete("https://localhost:7243/api/Post", requestOptions).subscribe({
+      next: () => {
+        this.getDashboardPosts(1);
+        this.getUserProfilePosts();
+      },
+      error: (result) => {
+        alert("Error while deleting your post : " + result.error);
+      }
+    });
+  }
+
+  deleteComment(postId: string, commentId: string) {
+    const userToken = this.authService.getUserTokenAndDecode();
+    const userId = userToken.serialNumber;
+    const requestBody = {
+      author: userId,
+      commentId: commentId
+    }
+    const requestOptions: Object = {
+      headers: new HttpHeaders().append('Authorization', "bearer " + localStorage.getItem('userToken')!),
+      responseType: 'text',
+      body: requestBody
+    };
+
+    this.http.delete("https://localhost:7243/api/Comment", requestOptions).subscribe({
+      next: () => {
+        this.getDashboardPosts(1);
+        this.getUserProfilePosts();
+      },
+      error: (result) => {
+        alert("Error while deleting your post : " + result.error);
+      }
+    });
+  }
 }

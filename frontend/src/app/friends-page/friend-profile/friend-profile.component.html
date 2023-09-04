@@ -1,8 +1,8 @@
 <div class="m-5 mb-0 p-3 sm:p-12 dark:bg-backgroundcolor dark:text-gray-100 rounded-2xl">
-    <button class="flex flex-col space-y-4 lg:space-y-0 lg:space-x-6 lg:flex-row" (click)="openChat()">
-        <img src="https://source.unsplash.com/75x75/?portrait" alt=""
-            class="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-700">
-        <div class="flex flex-col">
+    <div class="flex flex-col space-y-4 lg:space-y-0 lg:space-x-6 lg:flex-row">
+        <img src="https://source.unsplash.com/75x75/?portrait" alt="" (click)="openChat()"
+            class="self-center cursor-pointer flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-700">
+        <div class="flex flex-col cursor-pointer" (click)="openChat()">
             <h4 class="text-2xl font-semibold text-center md:text-left text-textcolor">{{userData.firstName + " " +
                 userData.lastName}}
                 <div *ngIf="userData.isOnline === true"
@@ -27,5 +27,5 @@
               Unfollow
             </button>
           </div>
-        </button>
+        </div>
 </div>

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Post } from 'src/models/Post.model';
+import { AuthService } from 'src/services/auth.service';
 import { PostService } from 'src/services/post.service';
 
 @Component({
@@ -7,13 +8,19 @@ import { PostService } from 'src/services/post.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent {
-
-  constructor(private postService: PostService) {
-  }
+export class PostComponent implements OnInit {
 
   @Input() post!: Post
   comments = false;
+  authUser = "";
+
+  constructor(private postService: PostService, private authService : AuthService) {
+  }
+
+  ngOnInit(): void {
+    const userToken = this.authService.getUserTokenAndDecode();
+    this.authUser = userToken.serialNumber;
+  }
 
   showComments() {
     if (this.comments == false) {
@@ -48,4 +55,7 @@ export class PostComponent {
   });
  }
 
+ deletePost() {
+  this.postService.deletePost(this.post.id)
+ }
 }

@@ -26,6 +26,8 @@ export class MessagesComponent implements OnInit {
     this.scrollToBottom();
     this.messageService.activeMessages.subscribe(result => {
       this.activeMessages = result;
+      this.scrollToBottom();
+      this.messageService.getMessagesFriendsList();
     })
   }
 

@@ -15,7 +15,6 @@ export class FriendProfileComponent {
 
   constructor(private messageService: MessageService, private router: Router, private followService: FollowService) 
   {
-
   }
   
   followUser(){

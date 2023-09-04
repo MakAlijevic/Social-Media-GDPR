@@ -6,8 +6,7 @@
         <hr class="mt-5 mx-5">
         <div class="editor mx-auto w-10/12 flex flex-col text-textcolor p-4 max-w-2xl">
             <textarea class="description bg-lightcolor sec p-3 h-32 border outline-none rounded-2xl" spellcheck="true"
-                placeholder="Describe everything about this post here" id="createPostContent"></textarea>
-            <!-- buttons -->
+                placeholder="What's on your mind today?" id="createPostContent"></textarea>
             <div class="buttons flex mt-2">
                 <button
                     class="btn border p-1 px-4 font-semibold cursor-pointer text-textcolor ml-auto bg-lightcolor rounded-2xl">
@@ -29,10 +28,10 @@
         <nav aria-label="Page navigation example">
           <ul class="flex items-center h-10 text-base justify-center m-5 mb-0">
             <li>
-              <button (click)="onPageChange(currentPage - 1)"
+              <button (click)="onPageChange(currentPage - 1)" *ngIf="currentPage > 1"
                 class="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-text-textcolor bg-backgroundcolor border border-buttoncolor rounded-l-lg hover:bg-lightcolor hover:text-gray-700">
                 <!-- Previous link content -->
-                Previous
+                Prev
               </button>
             </li>
             
@@ -43,7 +42,7 @@
             </li>
         
             <li>
-              <button (click)="onPageChange(currentPage + 1)"
+              <button (click)="onPageChange(currentPage + 1)" *ngIf="currentPage < pageNumbersArray.length"
                 class="flex items-center justify-center px-4 h-10 leading-tight text-textcolor bg-backgroundcolor border border-buttoncolor rounded-r-lg hover:bg-lightcolor hover:text-gray-700">
                 <!-- Next link content -->
                 Next
